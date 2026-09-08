@@ -75,8 +75,11 @@
 
   <div class="actions">
     <div class="progress" id="prog">0 / 20 réponses</div>
-    <button class="btn btn-main" id="submitBtn" data-act="submit">Terminer et envoyer mon résultat</button>
-    <div class="note" style="text-align:center;margin-top:6px">Votre application Mail s'ouvrira avec le résultat déjà écrit : il ne restera qu'à appuyer sur Envoyer.</div>
+    <div class="note" id="progNote" style="text-align:center;margin-top:0">Le bouton « Terminer » apparaîtra quand toutes les questions auront une réponse.</div>
+    <div id="finish" hidden>
+      <button class="btn btn-main" id="submitBtn" data-act="submit">Terminer et envoyer mon résultat</button>
+      <div class="note" style="text-align:center;margin-top:6px">Votre application Mail s'ouvrira avec le résultat déjà écrit : il ne restera qu'à appuyer sur Envoyer.</div>
+    </div>
     <div class="warn" id="warnMsg"></div>
   </div>
 
@@ -93,6 +96,8 @@
     <button class="btn btn-sec" id="copyBtn" data-act="copy">Copier mon code</button>
     <div class="note" style="margin-top:14px">Code détaillé (facultatif, pour le bilan) :</div>
     <textarea id="exportCode" readonly></textarea>
+    <div class="note" style="margin-top:16px">Terminé par erreur, ou envie de refaire le QCM ? Le bouton ci-dessous efface vos réponses sur cet appareil et repart de zéro (seul votre dernier envoi compte).</div>
+    <button class="btn btn-sec" id="resetBtn" data-act="reset">Recommencer le QCM</button>
   </div>
 
   <footer>AFTRAL Dijon · QCM — Pronouns &amp; present simple · CAP 2 · 2026.09.08 · Thomas Murphy</footer>
@@ -137,7 +142,12 @@ function build(){
 }
 
 function answered(){ var n = 0; for (var i = 1; i <= Q.length; i++) if (document.querySelector('input[name="q' + i + '"]:checked')) n++; return n; }
-function progress(){ document.getElementById("prog").textContent = answered() + " / " + Q.length + " réponses"; }
+function progress(){
+  var n = answered(), done = (n === Q.length);
+  document.getElementById("prog").textContent = n + " / " + Q.length + " réponses";
+  document.getElementById("finish").hidden = !done;                 // le bouton Terminer n'existe qu'une fois TOUT rempli
+  document.getElementById("progNote").hidden = done;
+}
 
 document.addEventListener("change", function(e){
   var t = e.target; if (!t || t.type !== "radio") return;
@@ -193,6 +203,7 @@ function submit(){
 function showResult(){
   document.body.classList.add("done");
   var ins = document.querySelectorAll('.q input'); for (var d = 0; d < ins.length; d++) ins[d].disabled = true;
+  document.getElementById("finish").hidden = false; document.getElementById("progNote").hidden = true;
   var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = "Terminé — vérifiez que l'email est parti";
   var r = document.getElementById("result"); r.classList.add("show"); r.scrollIntoView({behavior:"smooth", block:"start"});
 }
@@ -224,6 +235,7 @@ document.addEventListener("click", function(e){
   var act = b.getAttribute("data-act");
   if (act === "submit") { e.preventDefault(); submit(); }
   else if (act === "copy") { e.preventDefault(); copyCode(); }
+  else if (act === "reset") { e.preventDefault(); if (confirm("Effacer vos réponses et recommencer le QCM ?")) { try { localStorage.removeItem(STORE); } catch(e2) {} location.reload(); } }
   else if (act === "mail") { if (!LAST) { e.preventDefault(); } }
 }, false);
 
