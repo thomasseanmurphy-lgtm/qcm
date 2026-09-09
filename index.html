@@ -7,7 +7,7 @@
 <link rel="icon" href="data:,">
 <meta name="google" content="notranslate">
 <meta name="robots" content="noindex, nofollow">
-<title>QCM — Answer the ad</title>
+<title>QCM — Pronouns, present simple, there is / there are</title>
 <style>
   :root { --ink:#2a2a2a; --muted:#6b6357; --hair:#e2ddd3; --parch:#f5f0e8; --gold:#a8854a; --green:#4a6b4a; --red:#9a3b3b; --bg:#faf8f4; }
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -58,9 +58,9 @@
 <body class="notranslate" translate="no">
 <div class="wrap">
   <header>
-    <div class="eyebrow">Polytech Dijon · English · 5A Cyber · IoT · CND · September 9, 2026</div>
-    <h1>QCM — Answer the ad</h1>
-    <p class="sub">Reading a job posting like a recruiter, recruitment vocabulary, and the recruiter&#x27;s eye on a cover letter. The extract to read is printed in each question. 20 questions · note /20 · coefficient 0,1 · environ 20 min.</p>
+    <div class="eyebrow">UIMM Dijon · Anglais · BTS CPRP 1 · 9 septembre 2026</div>
+    <h1>QCM — Pronouns, present simple, there is / there are</h1>
+    <p class="sub">Révision des deux premières séances : les cinq listes de pronoms, le present simple et there is / there are, en contexte usinage. Niveau A2 / B1. 20 questions · note /20 · coefficient 1 · environ 15 min.</p>
   </header>
 
   <div class="card">
@@ -69,7 +69,7 @@
     <div class="note" id="nameNote"></div>
   </div>
 
-  <div class="consigne"><b>Consigne.</b> One answer per question. Read the extract printed in the question before you answer. No translator, no neighbor: this test checks what you took from today&#x27;s session. A guess is better than an empty question.</div>
+  <div class="consigne"><b>Consigne.</b> Une seule réponse par question. Répondez sans traducteur ni voisin : ce test sert à voir ce qui est compris après les deux premières séances. Une réponse au hasard vaut mieux qu&#x27;une question vide.</div>
 
   <div id="quiz"></div>
 
@@ -78,7 +78,7 @@
     <div class="note" id="progNote" style="text-align:center;margin-top:0">Le bouton « Terminer » apparaîtra quand toutes les questions auront une réponse.</div>
     <div id="finish" hidden>
       <button class="btn btn-main" id="submitBtn" data-act="submit">Terminer et envoyer mon résultat</button>
-      <div class="note" style="text-align:center;margin-top:6px">Votre application Mail s'ouvrira avec le résultat déjà écrit : il ne restera qu'à appuyer sur Envoyer.</div>
+      <div class="note" style="text-align:center;margin-top:6px" id="finishNote">Votre application Mail s'ouvrira avec le résultat déjà écrit : il ne restera qu'à appuyer sur Envoyer.</div>
     </div>
     <div class="warn" id="warnMsg"></div>
   </div>
@@ -90,24 +90,29 @@
     <div class="subs" id="rSubs"></div>
     <p class="note">La correction détaillée vous sera envoyée dans votre bilan individuel.</p>
     <p class="note" id="sendNote"><b>Votre application Mail devrait s'être ouverte avec votre code : appuyez sur Envoyer.</b> Si rien ne s'est ouvert, utilisez le bouton vert ci-dessous, ou copiez le code et collez-le dans un email à <span id="mailShow"></span>. <b>Tant que l'email n'est pas envoyé, votre résultat n'est pas transmis.</b></p>
+    <div id="mailZone">
     <a class="btn btn-mail" id="mailBtn" href="#" data-act="mail">Envoyer mon résultat par email</a>
     <div class="note" style="margin-top:12px"><b>Votre code</b> (à copier si le bouton ne marche pas) :</div>
     <textarea id="shortCode" readonly style="min-height:56px;font-size:14px;color:#2a2a2a"></textarea>
     <button class="btn btn-sec" id="copyBtn" data-act="copy">Copier mon code</button>
+    <div id="exportZone">
     <div class="note" style="margin-top:14px">Code détaillé (facultatif, pour le bilan) :</div>
     <textarea id="exportCode" readonly></textarea>
-    <div class="note" style="margin-top:16px">Terminé par erreur, ou envie de refaire le QCM ? Le bouton ci-dessous efface vos réponses sur cet appareil et repart de zéro (seul votre dernier envoi compte).</div>
+    </div>
+    </div>
+    <div class="note" style="margin-top:16px" id="resetNote">Terminé par erreur, ou envie de refaire le QCM ? Le bouton ci-dessous efface vos réponses sur cet appareil et repart de zéro (seul votre dernier envoi compte).</div>
     <button class="btn btn-sec" id="resetBtn" data-act="reset">Recommencer le QCM</button>
   </div>
 
-  <footer>ESIREM Dijon · QCM — Answer the ad · POLYTECH 5A · 2026.09.09 · Thomas Murphy</footer>
+  <footer>UIMM Dijon · QCM — Pronouns, present simple, there is / there are · BTS CPRP 1 · 2026.09.09 · Thomas Murphy</footer>
 </div>
 
 <script>
-var Q = [{"n": 1, "prompt": "Approach Cyber: “Ability to practice French OR Dutch at a native level. English proficiency (B2 level minimum) is mandatory too.”\nA French speaker with B1 English ______.", "opts": [{"L": "A", "t": "cannot apply: B2 English is mandatory", "ok": 1}, {"L": "B", "t": "can apply if Dutch is also native", "ok": 0}, {"L": "C", "t": "can apply: French is enough", "ok": 0}, {"L": "D", "t": "can apply: B2 is only preferred", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 2, "prompt": "Approach Cyber: “Nice to have: … prior engagement in cybersecurity platforms (TryHackMe, HackTheBox, CTFs).”\nCTF experience is ______.", "opts": [{"L": "A", "t": "a must for every candidate", "ok": 0}, {"L": "B", "t": "a bonus, not a condition", "ok": 1}, {"L": "C", "t": "required before the interview", "ok": 0}, {"L": "D", "t": "not relevant for this job", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 3, "prompt": "HID / Evolis: “Minimum 3 years of experience in embedded software development in C, including internship or apprenticeship experience.”\nAn apprentice with three years in embedded C ______.", "opts": [{"L": "A", "t": "needs three more years", "ok": 0}, {"L": "B", "t": "cannot count the apprenticeship", "ok": 0}, {"L": "C", "t": "meets the requirement", "ok": 1}, {"L": "D", "t": "must have a PhD", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 4, "prompt": "HID / Evolis: “Occasional international travel to customers may be considered as part of your missions.”\nTravel is ______.", "opts": [{"L": "A", "t": "every week", "ok": 0}, {"L": "B", "t": "never part of the job", "ok": 0}, {"L": "C", "t": "mandatory every month", "ok": 0}, {"L": "D", "t": "possible, but not frequent", "ok": 1}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 5, "prompt": "CERN: “Spoken and written English or French, with a commitment to learn the basics of the other language.”\nA candidate who speaks only French ______.", "opts": [{"L": "A", "t": "can apply if they agree to learn basic English", "ok": 1}, {"L": "B", "t": "must already be bilingual", "ok": 0}, {"L": "C", "t": "cannot apply", "ok": 0}, {"L": "D", "t": "must speak German too", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 6, "prompt": "CERN: “Optimize Phased Array Ultrasonic Testing (PAUT) techniques for medium/thin austenitic welds.”\nThe job mainly involves ______.", "opts": [{"L": "A", "t": "welding thin pipes", "ok": 0}, {"L": "B", "t": "selling ultrasonic probes", "ok": 0}, {"L": "C", "t": "improving an inspection method", "ok": 1}, {"L": "D", "t": "writing accounting software", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 7, "prompt": "Approach Cyber: “Capable of handling pressure in a fast-paced environment with multiple clients.”\nIn an interview, the best proof of this is ______.", "opts": [{"L": "A", "t": "saying that you are very stress-resistant", "ok": 0}, {"L": "B", "t": "a story of a day with several urgent requests and how you prioritized them", "ok": 1}, {"L": "C", "t": "listing your certifications", "ok": 0}, {"L": "D", "t": "explaining what a SOC is", "ok": 0}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 8, "prompt": "HID / Evolis: “The Embedded Software Engineer joins the Electronics R&D team, a group of 13 professionals … on one site: electronics, mechanics, software, tests.”\nIn your response note, this information is used for ______.", "opts": [{"L": "A", "t": "the salary paragraph", "ok": 0}, {"L": "B", "t": "nothing, it is decoration", "ok": 0}, {"L": "C", "t": "the closing ask", "ok": 0}, {"L": "D", "t": "the opening sentence that is only true for this company", "ok": 1}], "part": "A · Reading", "partLabel": "Part A — Reading the posting", "theme": "Lecture"}, {"n": 9, "prompt": "“The company plans to hire two junior engineers.” To hire means ______.", "opts": [{"L": "A", "t": "to recruit someone", "ok": 1}, {"L": "B", "t": "to rent something", "ok": 0}, {"L": "C", "t": "to dismiss someone", "ok": 0}, {"L": "D", "t": "to promote someone", "ok": 0}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 10, "prompt": "“Professional working proficiency in English.” Proficiency means ______.", "opts": [{"L": "A", "t": "a native speaker only", "ok": 0}, {"L": "B", "t": "a paper certificate", "ok": 0}, {"L": "C", "t": "a good working level", "ok": 1}, {"L": "D", "t": "a basic knowledge", "ok": 0}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 11, "prompt": "« Actuellement, je travaille chez Evolis. » → “______, I work at Evolis.”", "opts": [{"L": "A", "t": "Actually", "ok": 0}, {"L": "B", "t": "Currently", "ok": 1}, {"L": "C", "t": "Eventually", "ok": 0}, {"L": "D", "t": "Finally", "ok": 0}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 12, "prompt": "Testia offers “a fixed-term contract (6 months)”. A fixed-term contract is ______.", "opts": [{"L": "A", "t": "a permanent contract", "ok": 0}, {"L": "B", "t": "a freelance contract", "ok": 0}, {"L": "C", "t": "an internship", "ok": 0}, {"L": "D", "t": "a contract with an end date", "ok": 1}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 13, "prompt": "“Hands-on experience with SIEM tools.” Hands-on means ______.", "opts": [{"L": "A", "t": "practical, done by yourself", "ok": 1}, {"L": "B", "t": "theoretical, from books", "ok": 0}, {"L": "C", "t": "managerial", "ok": 0}, {"L": "D", "t": "gained abroad", "ok": 0}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 14, "prompt": "“I have three years of ______ in embedded C.”", "opts": [{"L": "A", "t": "experiences", "ok": 0}, {"L": "B", "t": "an experience", "ok": 0}, {"L": "C", "t": "experience", "ok": 1}, {"L": "D", "t": "the experiences", "ok": 0}], "part": "B · Vocabulary", "partLabel": "Part B — Recruitment vocabulary", "theme": "Vocabulaire"}, {"n": 15, "prompt": "Which sentence is only true for THIS company (it would not survive a change of company name)?", "opts": [{"L": "A", "t": "“I am very interested in your company.”", "ok": 0}, {"L": "B", "t": "“Your SOC is described as human-sized and multi-client, which is the environment I have worked in for two years.”", "ok": 1}, {"L": "C", "t": "“Your company is a leader in its field.”", "ok": 0}, {"L": "D", "t": "“I would be proud to join your team.”", "ok": 0}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}, {"n": 16, "prompt": "“I am a motivated, rigorous and dynamic team player.” The recruiter's problem with this sentence is ______.", "opts": [{"L": "A", "t": "it is too short", "ok": 0}, {"L": "B", "t": "it mixes tenses", "ok": 0}, {"L": "C", "t": "the spelling is wrong", "ok": 0}, {"L": "D", "t": "only adjectives, no proof", "ok": 1}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}, {"n": 17, "prompt": "The posting asks for log analysis. Which sentence is the best evidence?", "opts": [{"L": "A", "t": "“In March 2026 I identified a brute-force pattern in the VPN logs that the default rules had missed.”", "ok": 1}, {"L": "B", "t": "“I have strong experience in log analysis.”", "ok": 0}, {"L": "C", "t": "“Log analysis is my passion.”", "ok": 0}, {"L": "D", "t": "“I know a lot about logs.”", "ok": 0}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}, {"n": 18, "prompt": "“Joining your SOC would allow me to develop my expertise.” Why does this sentence fail?", "opts": [{"L": "A", "t": "it is too formal", "ok": 0}, {"L": "B", "t": "it uses the wrong tense", "ok": 0}, {"L": "C", "t": "it says what the candidate gets, not what the employer gets", "ok": 1}, {"L": "D", "t": "it is too long", "ok": 0}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}, {"n": 19, "prompt": "A recruiter reads your response note in ______.", "opts": [{"L": "A", "t": "about 10 minutes", "ok": 0}, {"L": "B", "t": "about 30 seconds", "ok": 1}, {"L": "C", "t": "about an hour", "ok": 0}, {"L": "D", "t": "a whole day", "ok": 0}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}, {"n": 20, "prompt": "There is one requirement you do not meet. The best strategy in the note is ______.", "opts": [{"L": "A", "t": "hide it and hope", "ok": 0}, {"L": "B", "t": "pretend you meet it", "ok": 0}, {"L": "C", "t": "apologize at length", "ok": 0}, {"L": "D", "t": "say it before they ask, with what is close and a time to close the gap", "ok": 1}], "part": "C · Method", "partLabel": "Part C — The recruiter's eye", "theme": "Méthode"}];
-var TEST_NAME = "QCM — Answer the ad · POLYTECH 5A · 2026.09.09", CLASS_NAME = "POLYTECH 5A", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "QCM Anglais Polytech 5A — {name}";
-var FIXED_NAME = "", SHORT_PREFIX = "QCM2-P5A-20260909";
-var STORE = "qcm_p5a_20260909" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
+var Q = [{"n": 1, "prompt": "Nadia is a machinist. ______ works near Dijon.", "opts": [{"L": "A", "t": "She"}, {"L": "B", "t": "He"}, {"L": "C", "t": "Her"}, {"L": "D", "t": "It"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 2, "prompt": "The spindle is loud. ______ turns at 8,100 rpm.", "opts": [{"L": "A", "t": "He"}, {"L": "B", "t": "Its"}, {"L": "C", "t": "It"}, {"L": "D", "t": "They"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 3, "prompt": "Karim programs the control, and Nadia helps ______.", "opts": [{"L": "A", "t": "he"}, {"L": "B", "t": "him"}, {"L": "C", "t": "his"}, {"L": "D", "t": "her"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 4, "prompt": "The parts are ready. Measure ______, please.", "opts": [{"L": "A", "t": "they"}, {"L": "B", "t": "it"}, {"L": "C", "t": "their"}, {"L": "D", "t": "them"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 5, "prompt": "Karim opens ______ toolbox.", "opts": [{"L": "A", "t": "his"}, {"L": "B", "t": "her"}, {"L": "C", "t": "him"}, {"L": "D", "t": "he"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 6, "prompt": "The machine stops when ______ door is open.", "opts": [{"L": "A", "t": "it's"}, {"L": "B", "t": "his"}, {"L": "C", "t": "it"}, {"L": "D", "t": "its"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 7, "prompt": "This vise is ______.", "opts": [{"L": "A", "t": "my"}, {"L": "B", "t": "mine"}, {"L": "C", "t": "me"}, {"L": "D", "t": "I"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 8, "prompt": "Our machine is a VF-2; ______ is a Mini Mill.", "opts": [{"L": "A", "t": "their"}, {"L": "B", "t": "them"}, {"L": "C", "t": "theirs"}, {"L": "D", "t": "they"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 9, "prompt": "Nadia measured the parts ______.", "opts": [{"L": "A", "t": "herself"}, {"L": "B", "t": "her"}, {"L": "C", "t": "hers"}, {"L": "D", "t": "himself"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 10, "prompt": "Be careful, don't cut ______ on the sharp edges.", "opts": [{"L": "A", "t": "you"}, {"L": "B", "t": "your"}, {"L": "C", "t": "yourself"}, {"L": "D", "t": "yours"}], "part": "A · Pronouns", "partLabel": "Partie A — Pronouns", "theme": "Pronoms"}, {"n": 11, "prompt": "The operator ______ the machine every morning.", "opts": [{"L": "A", "t": "check"}, {"L": "B", "t": "checks"}, {"L": "C", "t": "checking"}, {"L": "D", "t": "is check"}], "part": "B · Present simple", "partLabel": "Partie B — Present simple", "theme": "Present simple"}, {"n": 12, "prompt": "The Mini Mill ______ a big table.", "opts": [{"L": "A", "t": "don't have"}, {"L": "B", "t": "doesn't has"}, {"L": "C", "t": "hasn't"}, {"L": "D", "t": "doesn't have"}], "part": "B · Present simple", "partLabel": "Partie B — Present simple", "theme": "Present simple"}, {"n": 13, "prompt": "______ the VF-2 tap holes?", "opts": [{"L": "A", "t": "Do"}, {"L": "B", "t": "Does"}, {"L": "C", "t": "Is"}, {"L": "D", "t": "Has"}], "part": "B · Present simple", "partLabel": "Partie B — Present simple", "theme": "Present simple"}, {"n": 14, "prompt": "My colleagues ______ the Mini Mill for small parts.", "opts": [{"L": "A", "t": "prefer"}, {"L": "B", "t": "prefers"}, {"L": "C", "t": "is prefer"}, {"L": "D", "t": "preferring"}], "part": "B · Present simple", "partLabel": "Partie B — Present simple", "theme": "Present simple"}, {"n": 15, "prompt": "She always ______ the doors before the cycle starts.", "opts": [{"L": "A", "t": "close"}, {"L": "B", "t": "is closing"}, {"L": "C", "t": "closing"}, {"L": "D", "t": "closes"}], "part": "B · Present simple", "partLabel": "Partie B — Present simple", "theme": "Present simple"}, {"n": 16, "prompt": "______ a coolant tank under the machine.", "opts": [{"L": "A", "t": "There are"}, {"L": "B", "t": "It is"}, {"L": "C", "t": "There is"}, {"L": "D", "t": "There has"}], "part": "C · There is / are", "partLabel": "Partie C — There is / There are", "theme": "There is / are"}, {"n": 17, "prompt": "______ three axes on this machine: X, Y and Z.", "opts": [{"L": "A", "t": "There are"}, {"L": "B", "t": "There is"}, {"L": "C", "t": "They are"}, {"L": "D", "t": "There have"}], "part": "C · There is / are", "partLabel": "Partie C — There is / There are", "theme": "There is / are"}, {"n": 18, "prompt": "______ a tool changer on the Mini Mill? — Yes, there is.", "opts": [{"L": "A", "t": "There is"}, {"L": "B", "t": "Is there"}, {"L": "C", "t": "Are there"}, {"L": "D", "t": "Has there"}], "part": "C · There is / are", "partLabel": "Partie C — There is / There are", "theme": "There is / are"}, {"n": 19, "prompt": "______ any coolant in the tank. Fill it up.", "opts": [{"L": "A", "t": "There aren't"}, {"L": "B", "t": "It isn't"}, {"L": "C", "t": "There not is"}, {"L": "D", "t": "There isn't"}], "part": "C · There is / are", "partLabel": "Partie C — There is / There are", "theme": "There is / are"}, {"n": 20, "prompt": "How many parts ______ in this batch? — 200.", "opts": [{"L": "A", "t": "there are"}, {"L": "B", "t": "is there"}, {"L": "C", "t": "are there"}, {"L": "D", "t": "there is"}], "part": "C · There is / are", "partLabel": "Partie C — There is / There are", "theme": "There is / are"}];
+var TEST_NAME = "QCM — Pronouns, present simple, there is / there are · BTS CPRP 1 · 2026.09.09", CLASS_NAME = "BTS CPRP 1", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "QCM Anglais CPRP1 — {name}";
+var FIXED_NAME = "", SHORT_PREFIX = "QCM2-CPRP1-20260909";
+var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM2-CPRP1-20260909";   // API vide = ancien circuit (correction dans la page + code par email)
+var STORE = "qcm_cprp1_20260909" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
 var LAST = null;
 
 function shuffle(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
@@ -136,6 +141,11 @@ function build(){
   if (FIXED_NAME) {
     var inp = document.getElementById("stuName"); inp.value = FIXED_NAME; inp.readOnly = true; inp.style.background = "#f5f0e8";
     document.getElementById("nameNote").textContent = "Votre nom est déjà inscrit.";
+  }
+  if (API) {
+    document.getElementById("finishNote").textContent = "Votre résultat sera corrigé et enregistré automatiquement : rien à envoyer.";
+    document.getElementById("resetNote").textContent = "Terminé par erreur ? Le bouton ci-dessous efface vos réponses sur cet appareil. Attention : seul votre PREMIER envoi est enregistré, sauf accord du professeur.";
+    document.getElementById("exportZone").hidden = true;
   }
   progress();
   if (st.__done) restoreDone(st.__done);
@@ -168,10 +178,63 @@ function submit(){
     if (!confirm(missing.length + " question(s) sans réponse (" + missing.join(", ") + "). Terminer quand même ? Une question vide compte 0.")) { document.getElementById("q" + missing[0]).scrollIntoView({behavior:"smooth", block:"center"}); return; }
   }
   warn.textContent = "";
+  // lettres d'origine (A-D, - = blanc) + code court : toujours calculés, ils servent de secours si le serveur ne répond pas
+  var letters = "", chk = 0;
+  for (var c = 0; c < Q.length; c++) { var s2 = document.querySelector('input[name="q' + Q[c].n + '"]:checked'); var L2 = s2 ? s2.value : "-"; letters += L2; chk += (c + 1) * (L2 === "-" ? 0 : (L2.charCodeAt(0) - 64)); }
+  var slugName = name.normalize ? name.normalize("NFD").replace(/[̀-ͯ]/g, "") : name;
+  slugName = slugName.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
+  var shortCode = SHORT_PREFIX + "-" + slugName + "-" + letters + "-" + ("0" + (chk % 97)).slice(-2);
+  document.getElementById("shortCode").value = shortCode;
+  if (API) serverSubmit(name, letters, shortCode); else localSubmit(name, letters, shortCode);
+}
+
+function mailHrefFor(name, shortCode, out20){
+  var subject = MAIL_SUBJECT.replace("{name}", name);
+  var body = "Bonjour,\n\n" + (out20 == null ? "" : "Voici mon résultat : " + String(out20).replace(".", ",") + "/20.\n\n") + "Mon code : " + shortCode + "\n\n" + name;
+  return "mailto:" + TEACHER + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+}
+
+function paintScore(name, out20, score, total, sc, mx){
+  document.getElementById("rNote").innerHTML = (out20 == null ? "—" : String(out20).replace(".", ",")) + " <small>/ 20</small>";
+  document.getElementById("rName").textContent = name + (score == null ? "" : " · " + score + " bonne(s) réponse(s) sur " + total);
+  document.getElementById("rSubs").innerHTML = (sc && mx) ? subsHtml(sc, mx) : "";
+}
+
+// --- circuit serveur (qcm-api) : la clé n'est pas dans la page ---
+function serverSubmit(name, letters, shortCode){
+  var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = "Correction en cours…";
+  var ctl = (typeof AbortController !== "undefined") ? new AbortController() : null, tm = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
+  fetch(API + "/submit/" + encodeURIComponent(QCM_ID), {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({name: name, answers: letters}), signal: ctl ? ctl.signal : undefined})
+    .then(function(res){ return res.json(); })
+    .then(function(r){
+      clearTimeout(tm); if (!r || !r.ok) throw new Error((r && r.error) || "server");
+      var sc = {}, mx = {}; for (var i = 0; i < r.sections.length; i++) { sc[r.sections[i].name] = r.sections[i].sc; mx[r.sections[i].name] = r.sections[i].max; }
+      LAST = r; paintScore(name, r.out20, r.score, r.total, sc, mx);
+      document.getElementById("sendNote").innerHTML = "<b>Résultat enregistré.</b> Vous n'avez rien d'autre à envoyer." + (r.already ? " <b>Un résultat existait déjà pour ce nom : c'est le premier envoi qui compte.</b>" : "");
+      document.getElementById("mailZone").hidden = true;
+      showResult("Terminé — résultat enregistré");
+      try { var st2 = load(); st2.__done = {name: name, out20: r.out20, score: r.score, total: r.total, sc: sc, mx: mx, shortCode: shortCode, server: true, already: !!r.already}; save(st2); } catch(e) {}
+    })
+    .catch(function(e){
+      clearTimeout(tm);
+      var mailHref = mailHrefFor(name, shortCode, null);
+      LAST = {fallback: true}; paintScore(name, null, null, null, null, null);
+      document.getElementById("rName").textContent = name + " · le serveur de correction n'a pas répondu (" + (e && e.message ? e.message : "réseau") + ")";
+      document.getElementById("sendNote").innerHTML = "<b>Le serveur n'a pas répondu.</b> Envoyez votre code par email : votre application Mail va s'ouvrir, appuyez sur Envoyer. Vous pouvez aussi réessayer « Terminer » quand le réseau revient. La note vous sera communiquée avec le bilan.";
+      document.getElementById("mailZone").hidden = false; document.getElementById("mailBtn").setAttribute("href", mailHref);
+      showResult("Réessayer « Terminer »"); sb.disabled = false; LAST = null;
+      var ins = document.querySelectorAll('.q input'); for (var i = 0; i < ins.length; i++) ins[i].disabled = false; document.body.classList.remove("done");
+      try { var st3 = load(); st3.__done = {name: name, shortCode: shortCode, mailHref: mailHref, fallback: true}; save(st3); } catch(e2) {}
+      setTimeout(function(){ try { window.location.href = mailHref; } catch(e3) {} }, 700);
+    });
+}
+
+// --- ancien circuit (API vide) : correction dans la page, code par email ---
+function localSubmit(name, letters, shortCode){
   var items = [], score = 0, sc = {}, mx = {}, P = parts();
   for (var p = 0; p < P.length; p++) { sc[P[p].tag] = 0; mx[P[p].tag] = 0; }
   for (var k = 0; k < Q.length; k++) {
-    var q = Q[k], sel = document.querySelector('input[name="q' + q.n + '"]:checked'), given = sel ? sel.value : "", ok = 0, txt = "(blanc)";
+    var q = Q[k], given = letters[k] === "-" ? "" : letters[k], ok = 0, txt = "(blanc)";
     for (var o = 0; o < q.opts.length; o++) if (q.opts[o].L === given) { txt = given + " — " + q.opts[o].t; if (q.opts[o].ok) ok = 1; }
     score += ok; sc[q.part] += ok; mx[q.part]++;
     items.push({id: "q" + (q.n < 10 ? "0" + q.n : q.n), theme: q.theme, ok: ok, given: txt});
@@ -182,42 +245,43 @@ function submit(){
           score: score, total: Q.length, out20: out20, sections: sections, items: items};
   var code = "GTEST1::" + btoa(unescape(encodeURIComponent(JSON.stringify(LAST))));
   document.getElementById("exportCode").value = code;
-  var letters = "", chk = 0;
-  for (var c = 0; c < Q.length; c++) { var s2 = document.querySelector('input[name="q' + Q[c].n + '"]:checked'); var L2 = s2 ? s2.value : "-"; letters += L2; chk += (c + 1) * (L2 === "-" ? 0 : (L2.charCodeAt(0) - 64)); }
-  var slugName = name.normalize ? name.normalize("NFD").replace(/[\u0300-\u036f]/g, "") : name;
-  slugName = slugName.replace(/[^A-Za-z0-9]+/g, "_").replace(/^_+|_+$/g, "");
-  var shortCode = SHORT_PREFIX + "-" + slugName + "-" + letters + "-" + ("0" + (chk % 97)).slice(-2);
-  document.getElementById("shortCode").value = shortCode;
-  document.getElementById("rNote").innerHTML = String(out20).replace(".", ",") + " <small>/ 20</small>";
-  document.getElementById("rName").textContent = name + " · " + score + " bonne(s) réponse(s) sur " + Q.length;
-  document.getElementById("rSubs").innerHTML = subsHtml(sc, mx);
-  var subject = MAIL_SUBJECT.replace("{name}", name);
-  var body = "Bonjour,\n\nVoici mon résultat : " + String(out20).replace(".", ",") + "/20.\n\nMon code : " + shortCode + "\n\n" + name;
-  document.getElementById("mailBtn").setAttribute("href", "mailto:" + TEACHER + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body));
-  var mailHref = document.getElementById("mailBtn").getAttribute("href");
-  showResult();
-  try { var st2 = load(); st2.__done = {name: name, out20: out20, score: score, sc: sc, mx: mx, shortCode: shortCode, code: code, mailHref: mailHref}; save(st2); } catch(e) {}
+  paintScore(name, out20, score, Q.length, sc, mx);
+  var mailHref = mailHrefFor(name, shortCode, out20);
+  document.getElementById("mailBtn").setAttribute("href", mailHref);
+  showResult("Terminé — vérifiez que l'email est parti");
+  try { var st2 = load(); st2.__done = {name: name, out20: out20, score: score, total: Q.length, sc: sc, mx: mx, shortCode: shortCode, code: code, mailHref: mailHref}; save(st2); } catch(e) {}
   setTimeout(function(){ try { window.location.href = mailHref; } catch(e) {} }, 700);
 }
 
-function showResult(){
+function showResult(btnText){
   document.body.classList.add("done");
   var ins = document.querySelectorAll('.q input'); for (var d = 0; d < ins.length; d++) ins[d].disabled = true;
   document.getElementById("finish").hidden = false; document.getElementById("progNote").hidden = true;
-  var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = "Terminé — vérifiez que l'email est parti";
+  var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = btnText || "Terminé";
   var r = document.getElementById("result"); r.classList.add("show"); r.scrollIntoView({behavior:"smooth", block:"start"});
 }
 
 function restoreDone(d){
   LAST = true;
   document.getElementById("stuName").value = d.name; document.getElementById("stuName").readOnly = true;
-  document.getElementById("exportCode").value = d.code; document.getElementById("shortCode").value = d.shortCode;
-  document.getElementById("rNote").innerHTML = String(d.out20).replace(".", ",") + " <small>/ 20</small>";
-  document.getElementById("rName").textContent = d.name + " · " + d.score + " bonne(s) réponse(s) sur " + Q.length;
-  document.getElementById("rSubs").innerHTML = subsHtml(d.sc, d.mx);
+  document.getElementById("shortCode").value = d.shortCode || "";
+  if (d.server) {
+    paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
+    document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM : résultat enregistré.</b> Vous n'avez rien d'autre à envoyer.";
+    document.getElementById("mailZone").hidden = true; showResult("Terminé — résultat enregistré"); return;
+  }
+  if (d.fallback) {
+    LAST = null; paintScore(d.name, null, null, null, null, null);
+    document.getElementById("sendNote").innerHTML = "<b>Votre résultat n'a pas pu être enregistré sur le serveur.</b> Appuyez sur « Terminer » pour réessayer, ou envoyez votre code par email avec le bouton vert.";
+    document.getElementById("mailZone").hidden = false; document.getElementById("mailBtn").setAttribute("href", d.mailHref);
+    showResult("Réessayer « Terminer »"); document.getElementById("submitBtn").disabled = false; document.getElementById("stuName").readOnly = false;
+    var ins = document.querySelectorAll('.q input'); for (var i = 0; i < ins.length; i++) ins[i].disabled = false; document.body.classList.remove("done"); return;
+  }
+  document.getElementById("exportCode").value = d.code || "";
+  paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
   document.getElementById("mailBtn").setAttribute("href", d.mailHref);
   document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM.</b> Si votre email n'est pas encore parti, appuyez sur le bouton vert (votre application Mail s'ouvre avec le code), ou copiez le code et envoyez-le à " + TEACHER + ".";
-  showResult();
+  showResult("Terminé — vérifiez que l'email est parti");
 }
 
 function copyCode(){
