@@ -43,6 +43,7 @@
   .progress { font-size:14px; color:var(--muted); text-align:center; margin-bottom:8px; }
   #result { display:none; }
   #result.show { display:block; }
+  .status { color:var(--green); font-weight:700; font-size:17px; margin:6px 0 2px; }
   .score { font-family:Georgia, serif; font-size:40px; line-height:1; margin:6px 0 2px; }
   .score small { font-size:18px; color:var(--muted); }
   .subs { display:flex; gap:10px; flex-wrap:wrap; font-size:14px; color:var(--muted); }
@@ -60,7 +61,7 @@
   <header>
     <div class="eyebrow">UIMM Dijon · Anglais · BTS ELEC 1 CL1 · 14 septembre 2026</div>
     <h1>QCM — The PlayStation 5: grammar check</h1>
-    <p class="sub">Les cinq règles de la présentation d&#x27;un produit, sur le texte de la PlayStation 5 : present simple, passive voice, there is / there are, comparison, modal verbs. Niveau B1 / B2. 30 questions · note /20 · coefficient 1 · environ 25 min.</p>
+    <p class="sub">Les cinq règles de la présentation d&#x27;un produit, sur le texte de la PlayStation 5 : present simple, passive voice, there is / there are, comparison, modal verbs. Niveau B1 / B2. 30 questions · note /20 · coefficient 0,1 · environ 25 min.</p>
   </header>
 
   <div class="card">
@@ -85,6 +86,7 @@
 
   <div class="card" id="result">
     <div class="eyebrow">Résultat</div>
+    <div class="status" id="rStatus"></div>
     <div class="score" id="rNote">— <small>/ 20</small></div>
     <div id="rName" class="note"></div>
     <div class="subs" id="rSubs"></div>
@@ -203,6 +205,7 @@ function paintScore(name, out20, score, total, sc, mx){
 // --- circuit serveur (qcm-api) : la clé n'est pas dans la page ---
 function serverSubmit(name, letters, shortCode){
   var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = "Correction en cours…";
+  document.getElementById("finishNote").textContent = "Envoi au serveur de correction, patientez quelques secondes…";
   var ctl = (typeof AbortController !== "undefined") ? new AbortController() : null, tm = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
   fetch(API + "/submit/" + encodeURIComponent(QCM_ID), {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({name: name, answers: letters}), signal: ctl ? ctl.signal : undefined})
     .then(function(res){ return res.json(); })
@@ -212,7 +215,7 @@ function serverSubmit(name, letters, shortCode){
       LAST = r; paintScore(name, r.out20, r.score, r.total, sc, mx);
       document.getElementById("sendNote").innerHTML = "<b>Résultat enregistré.</b> Vous n'avez rien d'autre à envoyer." + (r.already ? " <b>Un résultat existait déjà pour ce nom : c'est le premier envoi qui compte.</b>" : "");
       document.getElementById("mailZone").hidden = true;
-      showResult("Terminé — résultat enregistré");
+      showResult("Terminé — résultat enregistré", true);
       try { var st2 = load(); st2.__done = {name: name, out20: r.out20, score: r.score, total: r.total, sc: sc, mx: mx, shortCode: shortCode, server: true, already: !!r.already}; save(st2); } catch(e) {}
     })
     .catch(function(e){
@@ -248,17 +251,24 @@ function localSubmit(name, letters, shortCode){
   paintScore(name, out20, score, Q.length, sc, mx);
   var mailHref = mailHrefFor(name, shortCode, out20);
   document.getElementById("mailBtn").setAttribute("href", mailHref);
-  showResult("Terminé — vérifiez que l'email est parti");
+  showResult("Terminé — vérifiez que l'email est parti", true);
   try { var st2 = load(); st2.__done = {name: name, out20: out20, score: score, total: Q.length, sc: sc, mx: mx, shortCode: shortCode, code: code, mailHref: mailHref}; save(st2); } catch(e) {}
   setTimeout(function(){ try { window.location.href = mailHref; } catch(e) {} }, 700);
 }
 
-function showResult(btnText){
+function showResult(btnText, finished){
+  // Retour élèves 14/09/2026 : la carte résultat était SOUS la barre « Terminer » collée en bas de l'écran et le défilement
+  // « smooth » échouait sur téléphone → bouton grisé, « rien ne se passe ». Désormais : carte résultat remontée EN HAUT de la
+  // page (juste sous le titre), barre d'actions masquée quand il n'y a plus rien à faire, remontée immédiate sans animation.
   document.body.classList.add("done");
   var ins = document.querySelectorAll('.q input'); for (var d = 0; d < ins.length; d++) ins[d].disabled = true;
   document.getElementById("finish").hidden = false; document.getElementById("progNote").hidden = true;
   var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = btnText || "Terminé";
-  var r = document.getElementById("result"); r.classList.add("show"); r.scrollIntoView({behavior:"smooth", block:"start"});
+  var r = document.getElementById("result"); r.classList.add("show");
+  var hdr = document.querySelector("header"); if (r.previousElementSibling !== hdr) hdr.parentNode.insertBefore(r, hdr.nextSibling);
+  document.querySelector(".actions").hidden = !!finished;
+  document.getElementById("rStatus").textContent = finished ? "✓ " + (btnText || "Terminé") : "";
+  window.scrollTo(0, 0); setTimeout(function(){ window.scrollTo(0, 0); }, 60); setTimeout(function(){ window.scrollTo(0, 0); }, 400);
 }
 
 function restoreDone(d){
@@ -268,7 +278,7 @@ function restoreDone(d){
   if (d.server) {
     paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
     document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM : résultat enregistré.</b> Vous n'avez rien d'autre à envoyer.";
-    document.getElementById("mailZone").hidden = true; showResult("Terminé — résultat enregistré"); return;
+    document.getElementById("mailZone").hidden = true; showResult("Terminé — résultat enregistré", true); return;
   }
   if (d.fallback) {
     LAST = null; paintScore(d.name, null, null, null, null, null);
@@ -281,7 +291,7 @@ function restoreDone(d){
   paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
   document.getElementById("mailBtn").setAttribute("href", d.mailHref);
   document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM.</b> Si votre email n'est pas encore parti, appuyez sur le bouton vert (votre application Mail s'ouvre avec le code), ou copiez le code et envoyez-le à " + TEACHER + ".";
-  showResult("Terminé — vérifiez que l'email est parti");
+  showResult("Terminé — vérifiez que l'email est parti", true);
 }
 
 function copyCode(){
