@@ -170,6 +170,46 @@ document.getElementById("stuName").addEventListener("input", function(){ var st 
 
 function subsHtml(sc, mx){ var P = parts(), h = ""; for (var i = 0; i < P.length; i++) h += "<span>" + esc(P[i].tag) + " <b>" + sc[P[i].tag] + "/" + mx[P[i].tag] + "</b></span>"; return h; }
 
+// --- Confettis massifs à « Terminer » (demande Thomas, 17/09/2026) : trois vagues, plusieurs foyers, ~1 000 particules.
+function bigConfetti(){
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var old = document.getElementById("confetti-canvas"); if (old) old.remove();
+  var c = document.createElement("canvas"); c.id = "confetti-canvas";
+  c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999";
+  document.body.appendChild(c);
+  var ctx = c.getContext("2d"), dpr = window.devicePixelRatio || 1, W = innerWidth, H = innerHeight;
+  c.width = W * dpr; c.height = H * dpr; ctx.scale(dpr, dpr);
+  var colors = ["#FFC9D2", "#FF6B81", "#C41E3A", "#F2C94C", "#2F5F8F", "#3DDC97", "#8E44AD", "#FFFFFF", "#0A0A0A"];
+  var P = [], life = 6500, t0 = performance.now();
+  function burst(x, y, n, spread, speed){
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + (Math.random() - 0.5) * spread, v = speed * (0.5 + Math.random());
+      P.push({x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 5 + Math.random() * 9, h: 3 + Math.random() * 6,
+              r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.4, col: colors[(Math.random() * colors.length) | 0], shape: i % 3, born: performance.now()});
+    }
+  }
+  burst(W / 2, H * 0.6, 420, Math.PI * 1.1, 22);                                   // explosion centrale
+  setTimeout(function(){ burst(W * 0.08, H * 0.9, 220, Math.PI * 0.7, 26); burst(W * 0.92, H * 0.9, 220, Math.PI * 0.7, 26); }, 350);  // canons latéraux
+  setTimeout(function(){ for (var k = 0; k < 6; k++) burst(W * (0.1 + 0.16 * k), -10, 40, Math.PI * 2, 3); }, 900);       // pluie du haut
+  setTimeout(function(){ burst(W / 2, H * 0.5, 300, Math.PI * 2, 18); }, 1500);                                          // deuxième explosion
+  function frame(t){
+    var k = (t - t0) / life;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i]; p.vy += 0.32; p.vx *= 0.985; p.vy *= 0.995; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      if (p.y > H + 30) continue;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.max(0, 1 - Math.max(0, k - 0.7) / 0.3);
+      ctx.fillStyle = p.col;
+      if (p.shape === 0) ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      else if (p.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, p.h / 1.5, 0, Math.PI * 2); ctx.fill(); }
+      else { ctx.beginPath(); ctx.moveTo(0, -p.h); ctx.lineTo(p.w / 2, p.h / 2); ctx.lineTo(-p.w / 2, p.h / 2); ctx.closePath(); ctx.fill(); }
+      ctx.restore();
+    }
+    if (k < 1) requestAnimationFrame(frame); else c.remove();
+  }
+  requestAnimationFrame(frame);
+}
+
 function submit(){
   var name = (document.getElementById("stuName").value || "").trim(), warn = document.getElementById("warnMsg");
   if (name.length < 3) { warn.textContent = "Écrivez d'abord votre nom et prénom en haut de la page."; document.getElementById("stuName").focus(); window.scrollTo({top:0, behavior:"smooth"}); return; }
@@ -215,7 +255,7 @@ function serverSubmit(name, letters, shortCode){
       LAST = r; paintScore(name, r.out20, r.score, r.total, sc, mx);
       document.getElementById("sendNote").innerHTML = "<b>Résultat enregistré.</b> Vous n'avez rien d'autre à envoyer." + (r.already ? " <b>Un résultat existait déjà pour ce nom : c'est le premier envoi qui compte.</b>" : "");
       document.getElementById("mailZone").hidden = true;
-      showResult("Terminé — résultat enregistré", true);
+      showResult("Terminé — résultat enregistré", true); bigConfetti();
       try { var st2 = load(); st2.__done = {name: name, out20: r.out20, score: r.score, total: r.total, sc: sc, mx: mx, shortCode: shortCode, server: true, already: !!r.already}; save(st2); } catch(e) {}
     })
     .catch(function(e){
@@ -251,7 +291,7 @@ function localSubmit(name, letters, shortCode){
   paintScore(name, out20, score, Q.length, sc, mx);
   var mailHref = mailHrefFor(name, shortCode, out20);
   document.getElementById("mailBtn").setAttribute("href", mailHref);
-  showResult("Terminé — vérifiez que l'email est parti", true);
+  showResult("Terminé — vérifiez que l'email est parti", true); bigConfetti();
   try { var st2 = load(); st2.__done = {name: name, out20: out20, score: score, total: Q.length, sc: sc, mx: mx, shortCode: shortCode, code: code, mailHref: mailHref}; save(st2); } catch(e) {}
   setTimeout(function(){ try { window.location.href = mailHref; } catch(e) {} }, 700);
 }
