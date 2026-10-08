@@ -7,7 +7,7 @@
 <link rel="icon" href="data:,">
 <meta name="google" content="notranslate">
 <meta name="robots" content="noindex, nofollow">
-<title>Listening quiz — Industrial robots are (nearly) perfect</title>
+<title>QCM de placement — B1 → C1</title>
 <style>
   :root { --ink:#2a2a2a; --muted:#6b6357; --hair:#e2ddd3; --parch:#f5f0e8; --gold:#a8854a; --green:#4a6b4a; --red:#9a3b3b; --bg:#faf8f4; }
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -43,6 +43,7 @@
   .progress { font-size:14px; color:var(--muted); text-align:center; margin-bottom:8px; }
   #result { display:none; }
   #result.show { display:block; }
+  .status { color:var(--green); font-weight:700; font-size:17px; margin:6px 0 2px; }
   .score { font-family:Georgia, serif; font-size:40px; line-height:1; margin:6px 0 2px; }
   .score small { font-size:18px; color:var(--muted); }
   .subs { display:flex; gap:10px; flex-wrap:wrap; font-size:14px; color:var(--muted); }
@@ -58,9 +59,9 @@
 <body class="notranslate" translate="no">
 <div class="wrap">
   <header>
-    <div class="eyebrow">UIMM Dijon · Anglais · LP CAPPI SA · 7 octobre 2026</div>
-    <h1>Listening quiz — Industrial robots are (nearly) perfect</h1>
-    <p class="sub">Video by Atomic Frontier, filmed at the BMW plant in San Luis Potosí, Mexico (12 min). The questions follow the video in order — the time code tells you where to listen. Answer while you watch. 20 questions · note /20 · coefficient 1 · environ 35 min (deux visionnages).</p>
+    <div class="eyebrow">ESIREM Polytech Dijon · Anglais · 3A CND · 2 octobre 2026</div>
+    <h1>QCM de placement — B1 → C1</h1>
+    <p class="sub">Grammaire et vocabulaire de l&#x27;ingénieur. Trois parties de difficulté croissante : ce test sert à adapter le cours, pas à sanctionner. 30 questions · note /20 · coefficient 0,1 · environ 30 min.</p>
   </header>
 
   <div class="card">
@@ -69,12 +70,12 @@
     <div class="note" id="nameNote"></div>
   </div>
 
-  <div class="consigne"><b>Consigne.</b> Une seule réponse par question. Les questions suivent la vidéo dans l&#x27;ordre : le minutage indique où écouter. Répondez pendant la projection, sans traducteur ni voisin.</div>
+  <div class="consigne"><b>Consigne.</b> Une seule réponse par question. Répondez sans traducteur ni voisin : ce test sert à adapter le cours à votre niveau. Lisez les marqueurs de temps (since, yesterday, by the time, ever…) : ils décident du temps. Une réponse au hasard vaut mieux qu&#x27;une question vide.</div>
 
   <div id="quiz"></div>
 
   <div class="actions">
-    <div class="progress" id="prog">0 / 20 réponses</div>
+    <div class="progress" id="prog">0 / 30 réponses</div>
     <div class="note" id="progNote" style="text-align:center;margin-top:0">Le bouton « Terminer » apparaîtra quand toutes les questions auront une réponse.</div>
     <div id="finish" hidden>
       <button class="btn btn-main" id="submitBtn" data-act="submit">Terminer et envoyer mon résultat</button>
@@ -85,6 +86,7 @@
 
   <div class="card" id="result">
     <div class="eyebrow">Résultat</div>
+    <div class="status" id="rStatus"></div>
     <div class="score" id="rNote">— <small>/ 20</small></div>
     <div id="rName" class="note"></div>
     <div class="subs" id="rSubs"></div>
@@ -104,15 +106,15 @@
     <button class="btn btn-sec" id="resetBtn" data-act="reset">Recommencer le QCM</button>
   </div>
 
-  <footer>UIMM Dijon · Listening quiz — Industrial robots are (nearly) perfect · LP CAPPI SA · 2026.10.07 · Thomas Murphy</footer>
+  <footer>ESIREM Dijon · QCM de placement — B1 → C1 · POLYTECH 3A CND · 2026.10.02 · Thomas Murphy</footer>
 </div>
 
 <script>
-var Q = [{"n": 1, "prompt": "[0:00] Where is the narrator filming this video?", "opts": [{"L": "A", "t": "At a BMW car plant in Germany."}, {"L": "B", "t": "At a BMW car plant in central Mexico."}, {"L": "C", "t": "In a robotics lab at his university."}, {"L": "D", "t": "At a General Motors plant in New York."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Information explicite"}, {"n": 2, "prompt": "[0:14] What is the main question the video tries to answer?", "opts": [{"L": "A", "t": "How many robots it takes to replace one human worker."}, {"L": "B", "t": "Why BMW decided to build a plant in Mexico."}, {"L": "C", "t": "How to build a cheap robot arm at home."}, {"L": "D", "t": "Why a factory with 700 robots still needs 3,700 human workers."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Inférence"}, {"n": 3, "prompt": "[0:31] By 1913, what turned the car into a mass-produced product?", "opts": [{"L": "A", "t": "Interchangeable parts and the moving assembly line."}, {"L": "B", "t": "The first industrial robots in the factories."}, {"L": "C", "t": "Cheaper steel and aluminum."}, {"L": "D", "t": "Electric motors in every workshop."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Chronologie"}, {"n": 4, "prompt": "[0:46] What happened to the workers who were exposed to hot metal and toxic fumes?", "opts": [{"L": "A", "t": "They were paid more than the other workers."}, {"L": "B", "t": "They were replaced by Boy Scouts."}, {"L": "C", "t": "They were constantly injured at work."}, {"L": "D", "t": "They went on strike and formed unions."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Cause / conséquence"}, {"n": 5, "prompt": "[0:56] George Devol's first invention, the Speedy Weeny, was…", "opts": [{"L": "A", "t": "a welding robot sold to General Motors in 1961."}, {"L": "B", "t": "a hot-dog vending machine driven by a hydraulic actuator."}, {"L": "C", "t": "a conveyor belt for moving heavy car parts."}, {"L": "D", "t": "a robotic arm designed for surgery on a grape."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Information explicite"}, {"n": 6, "prompt": "[1:34] According to the video, what could Unimate do?", "opts": [{"L": "A", "t": "Move 200 kg loads with sub-millimeter accuracy."}, {"L": "B", "t": "See its environment in 3D with two cameras."}, {"L": "C", "t": "Fit seats and wires inside a car."}, {"L": "D", "t": "Drive a finished car off the production line."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Chiffres"}, {"n": 7, "prompt": "[2:47] In the video, the “end effector” is…", "opts": [{"L": "A", "t": "one of the motor-driven joints of the arm."}, {"L": "B", "t": "the linkage that connects two joints."}, {"L": "C", "t": "the hydraulic actuator inside the base."}, {"L": "D", "t": "the tool at the end of the robot arm — here, a knife."}], "part": "A · 0:00–2:56", "partLabel": "Part A — Introduction & the history of the industrial robot (0:00 → 2:56)", "theme": "Vocabulaire"}, {"n": 8, "prompt": "[3:08] What did BMW change in 2024 to fix its logistics?", "opts": [{"L": "A", "t": "Robots that unpack the shipping containers automatically."}, {"L": "B", "t": "Fewer parts per car: 3,000 instead of 30,000."}, {"L": "C", "t": "A universal packaging standard that fits exactly into the crates."}, {"L": "D", "t": "Free choice of packaging for every supplier."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Information explicite"}, {"n": 9, "prompt": "[3:49] In what order does a car move through the factory?", "opts": [{"L": "A", "t": "Body shop → paint shop → assembly."}, {"L": "B", "t": "Paint shop → body shop → assembly."}, {"L": "C", "t": "Assembly → paint shop → body shop."}, {"L": "D", "t": "Body shop → assembly → paint shop."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Chronologie"}, {"n": 10, "prompt": "[4:03] What is Gabriel's job in the body shop?", "opts": [{"L": "A", "t": "He welds the car bodies by hand next to the robots."}, {"L": "B", "t": "He loads components into the robots and looks after five machines."}, {"L": "C", "t": "He programs the sixteen welding robots of the body shop."}, {"L": "D", "t": "He checks every painted panel for scratches and defects."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Information explicite"}, {"n": 11, "prompt": "[4:41] Why are the steel back and the aluminum front joined with a structural adhesive?", "opts": [{"L": "A", "t": "Because glue is cheaper than the sixteen welding robots."}, {"L": "B", "t": "Because welding would damage the paint applied earlier."}, {"L": "C", "t": "Because the adhesive is much lighter than a welded joint."}, {"L": "D", "t": "Because you cannot weld two different materials together."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Cause / conséquence"}, {"n": 12, "prompt": "[5:11] Why does the narrator wear a full suit, a hat and sticky boots in the paint shop?", "opts": [{"L": "A", "t": "To protect himself from the toxic fumes of the paint."}, {"L": "B", "t": "Because the ovens in the paint shop are extremely hot."}, {"L": "C", "t": "So that his own body does not contaminate the paint environment."}, {"L": "D", "t": "Because the robots spray paint in every direction around him."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Cause / conséquence"}, {"n": 13, "prompt": "[6:38] After the paint shop, the car is “a very pretty, if functionally useless shell”. Why is it useless?", "opts": [{"L": "A", "t": "It has no interior and no drivetrain yet."}, {"L": "B", "t": "The paint still needs 48 hours to dry completely."}, {"L": "C", "t": "The robots have not welded the roof on yet."}, {"L": "D", "t": "It has not passed the 1,000-photo quality check yet."}], "part": "B · 2:56–6:42", "partLabel": "Part B — Inside the factory: logistics, body shop, paint shop (2:56 → 6:42)", "theme": "Inférence"}, {"n": 14, "prompt": "[7:09] What is the first reason why robots struggle on the assembly line?", "opts": [{"L": "A", "t": "The parts are too heavy for a robot arm to lift safely."}, {"L": "B", "t": "The parts are soft, bendy and chaotic — hard for a robot to track."}, {"L": "C", "t": "The assembly line moves too fast for the robots to follow."}, {"L": "D", "t": "The workers refuse to work right next to the robots."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Cause / conséquence"}, {"n": 15, "prompt": "[7:43] What are AprilTags?", "opts": [{"L": "A", "t": "3D cameras with a left eye and a right eye, like a human."}, {"L": "B", "t": "Safety labels that warn workers when a robot is about to move."}, {"L": "C", "t": "Small sensors that record the position and velocity of each joint."}, {"L": "D", "t": "Patterns of known size, like QR codes, that give distance and orientation."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Vocabulaire"}, {"n": 16, "prompt": "[8:24] With a 1,000-to-1 gearbox, what happens when a robot hits something?", "opts": [{"L": "A", "t": "Its sensors detect the contact and it stops gently, like a cobot."}, {"L": "B", "t": "Its motor slows down by a factor of 1,000 to protect itself."}, {"L": "C", "t": "Inertia is squared: a huge force comes back and destroys object and robot."}, {"L": "D", "t": "Nothing serious, because the torque of the motor is very low."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Cause / conséquence"}, {"n": 17, "prompt": "[9:21] How do cobots keep the human workers safe?", "opts": [{"L": "A", "t": "Their torque is limited and they use low gear ratios, so you can push them easily."}, {"L": "B", "t": "They work behind safety fences, far away from the human workers."}, {"L": "C", "t": "They are only switched on when the workers are on their lunch break."}, {"L": "D", "t": "They are teleoperated by a worker holding a leader arm in another room."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Information explicite"}, {"n": 18, "prompt": "[10:45] What is the “Pac-Man” music used for at the cobot station?", "opts": [{"L": "A", "t": "To entertain the workers during their lunch break."}, {"L": "B", "t": "To announce new components and give feedback on production."}, {"L": "C", "t": "To warn the workers that a robot is about to move."}, {"L": "D", "t": "To signal that the shift is over and the line is stopping."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Information explicite"}, {"n": 19, "prompt": "[10:52] Why is the BMW roundel attached by a human, according to the narrator?", "opts": [{"L": "A", "t": "Robots are not precise enough to place the small logo."}, {"L": "B", "t": "The logo is too heavy and fragile for a cobot to handle."}, {"L": "C", "t": "Company rules forbid robots in the final assembly area."}, {"L": "D", "t": "A robot could do it, but it is a final human stamp of approval."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Inférence"}, {"n": 20, "prompt": "[11:17] In the conclusion, which of these is NOT one of the roles of the 3,700 human workers?", "opts": [{"L": "A", "t": "Loading non-standard parts and overseeing the robots."}, {"L": "B", "t": "Maintaining and programming the robots."}, {"L": "C", "t": "Painting the cars by hand in the paint shop."}, {"L": "D", "t": "Running a recycling plant and a solar farm."}], "part": "C · 6:42–12:14", "partLabel": "Part C — Assembly, the limits of automation & conclusion (6:42 → 12:14)", "theme": "Inférence"}];
-var TEST_NAME = "Listening quiz — Industrial robots are (nearly) perfect · LP CAPPI SA · 2026.10.07", CLASS_NAME = "LP CAPPI SA", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "Quiz Anglais CAPPI SA — {name}";
-var FIXED_NAME = "", SHORT_PREFIX = "QCM2-CAPPISA-20261007";
-var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM2-CAPPISA-20261007";   // API vide = ancien circuit (correction dans la page + code par email)
-var STORE = "qcm_cappisa_20261007" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
+var Q = [{"n": 1, "prompt": "This coating ______ the weld against corrosion, only against dust.", "opts": [{"L": "A", "t": "don't protect"}, {"L": "B", "t": "doesn't protect"}, {"L": "C", "t": "doesn't protects"}, {"L": "D", "t": "not protect"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present simple négatif"}, {"n": 2, "prompt": "The trainee asked: “How does this device ______?”", "opts": [{"L": "A", "t": "work"}, {"L": "B", "t": "works"}, {"L": "C", "t": "is working"}, {"L": "D", "t": "worked"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present simple"}, {"n": 3, "prompt": "The technicians ______ the pressure gauges yesterday, so nobody noticed the leak.", "opts": [{"L": "A", "t": "didn't checked"}, {"L": "B", "t": "haven't checked"}, {"L": "C", "t": "don't checked"}, {"L": "D", "t": "didn't check"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Past simple négatif"}, {"n": 4, "prompt": "The pump ______ vibration data since 8 a.m.", "opts": [{"L": "A", "t": "sends"}, {"L": "B", "t": "is sending"}, {"L": "C", "t": "has sent"}, {"L": "D", "t": "sent"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present perfect"}, {"n": 5, "prompt": "We use an ultrasonic gauge ______ measure the thickness.", "opts": [{"L": "A", "t": "to"}, {"L": "B", "t": "for"}, {"L": "C", "t": "for to"}, {"L": "D", "t": "at"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "For / To"}, {"n": 6, "prompt": "The second version was ______ to configure than the first one.", "opts": [{"L": "A", "t": "more easier"}, {"L": "B", "t": "easier"}, {"L": "C", "t": "more easy"}, {"L": "D", "t": "easyer"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Comparatif court"}, {"n": 7, "prompt": "______ two types of alerts: a warning and an alarm.", "opts": [{"L": "A", "t": "There is"}, {"L": "B", "t": "It has"}, {"L": "C", "t": "They are"}, {"L": "D", "t": "There are"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "There is / There are"}, {"n": 8, "prompt": "Every visitor ______ wear safety glasses in the test lab — no exceptions.", "opts": [{"L": "A", "t": "must"}, {"L": "B", "t": "must to"}, {"L": "C", "t": "has"}, {"L": "D", "t": "should to"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Modal d'obligation"}, {"n": 9, "prompt": "This method ______ in most aircraft maintenance hangars.", "opts": [{"L": "A", "t": "is mainly use"}, {"L": "B", "t": "mainly uses"}, {"L": "C", "t": "is mainly used"}, {"L": "D", "t": "is mainly using"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Passif au présent"}, {"n": 10, "prompt": "I can't ______ the calibration value for this probe.", "opts": [{"L": "A", "t": "remind"}, {"L": "B", "t": "remember"}, {"L": "C", "t": "souvenir"}, {"L": "D", "t": "memory"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Vocabulaire B1"}, {"n": 11, "prompt": "______ you ever ______ a pressure vessel on an industrial site?", "opts": [{"L": "A", "t": "Did … inspect"}, {"L": "B", "t": "Have … inspect"}, {"L": "C", "t": "Do … inspected"}, {"L": "D", "t": "Have … inspected"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Question au present perfect"}, {"n": 12, "prompt": "By the time the inspector arrived, the crack ______ through the whole weld.", "opts": [{"L": "A", "t": "had already spread"}, {"L": "B", "t": "has already spread"}, {"L": "C", "t": "already spread"}, {"L": "D", "t": "was already spread"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Past perfect"}, {"n": 13, "prompt": "The inspection lab ______ by Bureau Veritas since 2014.", "opts": [{"L": "A", "t": "is owned"}, {"L": "B", "t": "was owned"}, {"L": "C", "t": "has been owned"}, {"L": "D", "t": "has owned"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Present perfect passif"}, {"n": 14, "prompt": "The doctor ______ me to get more physical exercise.", "opts": [{"L": "A", "t": "said"}, {"L": "B", "t": "told"}, {"L": "C", "t": "explained"}, {"L": "D", "t": "suggested"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Reported speech"}, {"n": 15, "prompt": "The supplier ______ the defective batch on purpose.", "opts": [{"L": "A", "t": "denied to ship"}, {"L": "B", "t": "denied ship"}, {"L": "C", "t": "denied that ship"}, {"L": "D", "t": "denied shipping"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Verbe de report"}, {"n": 16, "prompt": "The probe ______ is connected to the flaw detector stopped working last night.", "opts": [{"L": "A", "t": "which"}, {"L": "B", "t": "who"}, {"L": "C", "t": "whom"}, {"L": "D", "t": "whose"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Pronom relatif"}, {"n": 17, "prompt": "The crack remained undetected ______ three months.", "opts": [{"L": "A", "t": "during"}, {"L": "B", "t": "for"}, {"L": "C", "t": "while"}, {"L": "D", "t": "since"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "During / For / While"}, {"n": 18, "prompt": "Every part in the batch ______ its own serial number.", "opts": [{"L": "A", "t": "have"}, {"L": "B", "t": "are having"}, {"L": "C", "t": "has"}, {"L": "D", "t": "haves"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Every + singulier"}, {"n": 19, "prompt": "This tool ______ help mitigate the risk, but we need more tests before we can be sure.", "opts": [{"L": "A", "t": "will"}, {"L": "B", "t": "is able"}, {"L": "C", "t": "can't"}, {"L": "D", "t": "could"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Hedging"}, {"n": 20, "prompt": "The benefits of ultrasonic testing clearly ______ the costs.", "opts": [{"L": "A", "t": "outweigh"}, {"L": "B", "t": "overweight"}, {"L": "C", "t": "outgrow"}, {"L": "D", "t": "overwhelm"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Vocabulaire B2"}, {"n": 21, "prompt": "If the welds ______ tested every month, the recall would have cost a day, not a month.", "opts": [{"L": "A", "t": "were"}, {"L": "B", "t": "would have been"}, {"L": "C", "t": "had been"}, {"L": "D", "t": "had"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Conditionnel 3 passif"}, {"n": 22, "prompt": "Not only ______ the crack, but they also repaired it the same day.", "opts": [{"L": "A", "t": "the inspectors found"}, {"L": "B", "t": "did the inspectors find"}, {"L": "C", "t": "found the inspectors"}, {"L": "D", "t": "the inspectors did find"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Inversion"}, {"n": 23, "prompt": "It was the faulty sensor ______ caused the shutdown, not the software update.", "opts": [{"L": "A", "t": "what"}, {"L": "B", "t": "whose"}, {"L": "C", "t": "it"}, {"L": "D", "t": "that"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Phrase clivée"}, {"n": 24, "prompt": "The cracks ______ to have started during the last heat treatment.", "opts": [{"L": "A", "t": "are believed"}, {"L": "B", "t": "believe"}, {"L": "C", "t": "are believing"}, {"L": "D", "t": "were believed by"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Passif complexe"}, {"n": 25, "prompt": "______ the delay in delivery, the inspection report was submitted on time.", "opts": [{"L": "A", "t": "Although"}, {"L": "B", "t": "In spite"}, {"L": "C", "t": "Despite"}, {"L": "D", "t": "Even if"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Concession"}, {"n": 26, "prompt": "You ______ the probe last week — now the readings are wrong.", "opts": [{"L": "A", "t": "should calibrate"}, {"L": "B", "t": "must have calibrated"}, {"L": "C", "t": "should had calibrated"}, {"L": "D", "t": "should have calibrated"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Should have + V-en"}, {"n": 27, "prompt": "Which sentence is appropriate in a formal e-mail to a client?", "opts": [{"L": "A", "t": "Here's the report, check it out when you can."}, {"L": "B", "t": "Please find attached the inspection report for your review."}, {"L": "C", "t": "I send you the report, tell me what you think."}, {"L": "D", "t": "Report attached, cheers."}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Registre"}, {"n": 28, "prompt": "The budget was cut by 30 %. ______, the team delivered the prototype on time.", "opts": [{"L": "A", "t": "Nevertheless"}, {"L": "B", "t": "Therefore"}, {"L": "C", "t": "Moreover"}, {"L": "D", "t": "Namely"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Connecteur de concession"}, {"n": 29, "prompt": "The inspector ______ a 3-mm crack because the surface was coated.", "opts": [{"L": "A", "t": "oversaw"}, {"L": "B", "t": "overtook"}, {"L": "C", "t": "overlooked"}, {"L": "D", "t": "overcame"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Vocabulaire C1"}, {"n": 30, "prompt": "______ by the storm, the antenna had to be replaced.", "opts": [{"L": "A", "t": "Damaging"}, {"L": "B", "t": "Having damaged"}, {"L": "C", "t": "To damage"}, {"L": "D", "t": "Damaged"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Proposition participiale passive"}];
+var TEST_NAME = "QCM de placement — B1 → C1 · POLYTECH 3A CND · 2026.10.02", CLASS_NAME = "POLYTECH 3A CND", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "QCM Anglais Polytech 3A CND — {name}";
+var FIXED_NAME = "", SHORT_PREFIX = "QCM1-POLY3ACND-20260918";
+var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM1-POLY3ACND-20260918";   // API vide = ancien circuit (correction dans la page + code par email)
+var STORE = "qcm_poly3acnd_20260918" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
 var LAST = null;
 
 function shuffle(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
@@ -168,6 +170,46 @@ document.getElementById("stuName").addEventListener("input", function(){ var st 
 
 function subsHtml(sc, mx){ var P = parts(), h = ""; for (var i = 0; i < P.length; i++) h += "<span>" + esc(P[i].tag) + " <b>" + sc[P[i].tag] + "/" + mx[P[i].tag] + "</b></span>"; return h; }
 
+// --- Confettis massifs à « Terminer » (demande Thomas, 17/09/2026) : trois vagues, plusieurs foyers, ~1 000 particules.
+function bigConfetti(){
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var old = document.getElementById("confetti-canvas"); if (old) old.remove();
+  var c = document.createElement("canvas"); c.id = "confetti-canvas";
+  c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999";
+  document.body.appendChild(c);
+  var ctx = c.getContext("2d"), dpr = window.devicePixelRatio || 1, W = innerWidth, H = innerHeight;
+  c.width = W * dpr; c.height = H * dpr; ctx.scale(dpr, dpr);
+  var colors = ["#FFC9D2", "#FF6B81", "#C41E3A", "#F2C94C", "#2F5F8F", "#3DDC97", "#8E44AD", "#FFFFFF", "#0A0A0A"];
+  var P = [], life = 6500, t0 = performance.now();
+  function burst(x, y, n, spread, speed){
+    for (var i = 0; i < n; i++) {
+      var a = -Math.PI / 2 + (Math.random() - 0.5) * spread, v = speed * (0.5 + Math.random());
+      P.push({x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, w: 5 + Math.random() * 9, h: 3 + Math.random() * 6,
+              r: Math.random() * Math.PI, vr: (Math.random() - 0.5) * 0.4, col: colors[(Math.random() * colors.length) | 0], shape: i % 3, born: performance.now()});
+    }
+  }
+  burst(W / 2, H * 0.6, 420, Math.PI * 1.1, 22);                                   // explosion centrale
+  setTimeout(function(){ burst(W * 0.08, H * 0.9, 220, Math.PI * 0.7, 26); burst(W * 0.92, H * 0.9, 220, Math.PI * 0.7, 26); }, 350);  // canons latéraux
+  setTimeout(function(){ for (var k = 0; k < 6; k++) burst(W * (0.1 + 0.16 * k), -10, 40, Math.PI * 2, 3); }, 900);       // pluie du haut
+  setTimeout(function(){ burst(W / 2, H * 0.5, 300, Math.PI * 2, 18); }, 1500);                                          // deuxième explosion
+  function frame(t){
+    var k = (t - t0) / life;
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < P.length; i++) {
+      var p = P[i]; p.vy += 0.32; p.vx *= 0.985; p.vy *= 0.995; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+      if (p.y > H + 30) continue;
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.max(0, 1 - Math.max(0, k - 0.7) / 0.3);
+      ctx.fillStyle = p.col;
+      if (p.shape === 0) ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      else if (p.shape === 1) { ctx.beginPath(); ctx.arc(0, 0, p.h / 1.5, 0, Math.PI * 2); ctx.fill(); }
+      else { ctx.beginPath(); ctx.moveTo(0, -p.h); ctx.lineTo(p.w / 2, p.h / 2); ctx.lineTo(-p.w / 2, p.h / 2); ctx.closePath(); ctx.fill(); }
+      ctx.restore();
+    }
+    if (k < 1) requestAnimationFrame(frame); else c.remove();
+  }
+  requestAnimationFrame(frame);
+}
+
 function submit(){
   var name = (document.getElementById("stuName").value || "").trim(), warn = document.getElementById("warnMsg");
   if (name.length < 3) { warn.textContent = "Écrivez d'abord votre nom et prénom en haut de la page."; document.getElementById("stuName").focus(); window.scrollTo({top:0, behavior:"smooth"}); return; }
@@ -203,6 +245,7 @@ function paintScore(name, out20, score, total, sc, mx){
 // --- circuit serveur (qcm-api) : la clé n'est pas dans la page ---
 function serverSubmit(name, letters, shortCode){
   var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = "Correction en cours…";
+  document.getElementById("finishNote").textContent = "Envoi au serveur de correction, patientez quelques secondes…";
   var ctl = (typeof AbortController !== "undefined") ? new AbortController() : null, tm = setTimeout(function(){ if (ctl) ctl.abort(); }, 15000);
   fetch(API + "/submit/" + encodeURIComponent(QCM_ID), {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({name: name, answers: letters}), signal: ctl ? ctl.signal : undefined})
     .then(function(res){ return res.json(); })
@@ -212,7 +255,7 @@ function serverSubmit(name, letters, shortCode){
       LAST = r; paintScore(name, r.out20, r.score, r.total, sc, mx);
       document.getElementById("sendNote").innerHTML = "<b>Résultat enregistré.</b> Vous n'avez rien d'autre à envoyer." + (r.already ? " <b>Un résultat existait déjà pour ce nom : c'est le premier envoi qui compte.</b>" : "");
       document.getElementById("mailZone").hidden = true;
-      showResult("Terminé — résultat enregistré");
+      showResult("Terminé — résultat enregistré", true); bigConfetti();
       try { var st2 = load(); st2.__done = {name: name, out20: r.out20, score: r.score, total: r.total, sc: sc, mx: mx, shortCode: shortCode, server: true, already: !!r.already}; save(st2); } catch(e) {}
     })
     .catch(function(e){
@@ -248,17 +291,24 @@ function localSubmit(name, letters, shortCode){
   paintScore(name, out20, score, Q.length, sc, mx);
   var mailHref = mailHrefFor(name, shortCode, out20);
   document.getElementById("mailBtn").setAttribute("href", mailHref);
-  showResult("Terminé — vérifiez que l'email est parti");
+  showResult("Terminé — vérifiez que l'email est parti", true); bigConfetti();
   try { var st2 = load(); st2.__done = {name: name, out20: out20, score: score, total: Q.length, sc: sc, mx: mx, shortCode: shortCode, code: code, mailHref: mailHref}; save(st2); } catch(e) {}
   setTimeout(function(){ try { window.location.href = mailHref; } catch(e) {} }, 700);
 }
 
-function showResult(btnText){
+function showResult(btnText, finished){
+  // Retour élèves 14/09/2026 : la carte résultat était SOUS la barre « Terminer » collée en bas de l'écran et le défilement
+  // « smooth » échouait sur téléphone → bouton grisé, « rien ne se passe ». Désormais : carte résultat remontée EN HAUT de la
+  // page (juste sous le titre), barre d'actions masquée quand il n'y a plus rien à faire, remontée immédiate sans animation.
   document.body.classList.add("done");
   var ins = document.querySelectorAll('.q input'); for (var d = 0; d < ins.length; d++) ins[d].disabled = true;
   document.getElementById("finish").hidden = false; document.getElementById("progNote").hidden = true;
   var sb = document.getElementById("submitBtn"); sb.disabled = true; sb.textContent = btnText || "Terminé";
-  var r = document.getElementById("result"); r.classList.add("show"); r.scrollIntoView({behavior:"smooth", block:"start"});
+  var r = document.getElementById("result"); r.classList.add("show");
+  var hdr = document.querySelector("header"); if (r.previousElementSibling !== hdr) hdr.parentNode.insertBefore(r, hdr.nextSibling);
+  document.querySelector(".actions").hidden = !!finished;
+  document.getElementById("rStatus").textContent = finished ? "✓ " + (btnText || "Terminé") : "";
+  window.scrollTo(0, 0); setTimeout(function(){ window.scrollTo(0, 0); }, 60); setTimeout(function(){ window.scrollTo(0, 0); }, 400);
 }
 
 function restoreDone(d){
@@ -268,7 +318,7 @@ function restoreDone(d){
   if (d.server) {
     paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
     document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM : résultat enregistré.</b> Vous n'avez rien d'autre à envoyer.";
-    document.getElementById("mailZone").hidden = true; showResult("Terminé — résultat enregistré"); return;
+    document.getElementById("mailZone").hidden = true; showResult("Terminé — résultat enregistré", true); return;
   }
   if (d.fallback) {
     LAST = null; paintScore(d.name, null, null, null, null, null);
@@ -281,7 +331,7 @@ function restoreDone(d){
   paintScore(d.name, d.out20, d.score, d.total || Q.length, d.sc, d.mx);
   document.getElementById("mailBtn").setAttribute("href", d.mailHref);
   document.getElementById("sendNote").innerHTML = "<b>Vous avez déjà terminé ce QCM.</b> Si votre email n'est pas encore parti, appuyez sur le bouton vert (votre application Mail s'ouvre avec le code), ou copiez le code et envoyez-le à " + TEACHER + ".";
-  showResult("Terminé — vérifiez que l'email est parti");
+  showResult("Terminé — vérifiez que l'email est parti", true);
 }
 
 function copyCode(){
