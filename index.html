@@ -120,6 +120,7 @@ var FIXED_NAME = "", SHORT_PREFIX = "QCM4-CPRP1-20261014";
 var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM4-CPRP1-20261014";   // API vide = ancien circuit (correction dans la page + code par email)
 var STORE = "qcm_cprp1_20261014" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
 var LAST = null;
+var BUILD = "2026-10-14T15:26:42";   // horodatage de qcm.py html ; comparé à current.json pour remplacer une page en cache
 var TEXT_AS_IMAGE = true;
 var TXT_FONT = "17px -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif", TXT_LH = 25;
 
@@ -185,6 +186,18 @@ function paintAll(){ for (var i = 1; i <= Q.length; i++) paintQ(i); }
 var _rsz = null;
 window.addEventListener("resize", function(){ if (!TEXT_AS_IMAGE) return; clearTimeout(_rsz); _rsz = setTimeout(function(){
   var cv = document.querySelector("canvas.txt"); if (cv && Math.floor(cv.getBoundingClientRect().width) !== +cv.getAttribute("data-w")) paintAll(); }, 150); });
+
+// --- Auto-rafraîchissement (14/10/2026) : GitHub Pages est mis en cache 10 min par le navigateur ; si current.json annonce
+// une version plus récente que celle-ci, on recharge une fois (fetch cache:"reload" puis reload). Les réponses sont dans localStorage.
+(function(){
+  if (!/^https?:/.test(location.protocol) || !BUILD) return;
+  var base = location.pathname.replace(/[^\/]*$/, "");
+  fetch(base + "current.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(c){
+    if (!c || !c.build || c.build <= BUILD) return;
+    var k = "qcm_reloaded_" + c.build; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, "1"); } catch(e) {}
+    fetch(location.pathname, {cache: "reload"}).then(function(){ location.reload(); }, function(){ location.reload(); });
+  }).catch(function(){});
+})();
 
 function answered(){ var n = 0; for (var i = 1; i <= Q.length; i++) if (document.querySelector('input[name="q' + i + '"]:checked')) n++; return n; }
 function progress(){
