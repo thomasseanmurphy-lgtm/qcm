@@ -29,11 +29,15 @@
   .q.missing { border-color:var(--red); box-shadow:0 0 0 2px rgba(154,59,59,.15); }
   .q .stem { margin:0 0 8px; font-size:17px; }
   .q .stem b { font-family:Georgia, serif; color:var(--muted); margin-right:8px; }
+  .img .q .stem { display:flex; align-items:flex-start; }
+  .img .q .stem b { flex:none; line-height:25px; }
+  canvas.txt { display:block; flex:1 1 auto; width:100%; min-width:0; }
   .opt { display:flex; align-items:center; gap:12px; padding:10px 8px; border-radius:8px; cursor:pointer; font-size:17px; border:1px solid transparent; }
   .opt:active { background:var(--parch); }
   .opt input { width:22px; height:22px; margin:0; flex:none; accent-color:var(--ink); }
   .opt.sel { background:var(--parch); border-color:#d8d0c0; }
   .opt.sel span { font-weight:600; }
+  .opt canvas.txt { pointer-events:none; }
   .actions { position:sticky; bottom:0; background:rgba(250,248,244,.96); padding:12px 0; border-top:1px solid var(--hair); margin-top:20px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
   .btn { display:inline-block; width:100%; font-size:18px; font-weight:700; padding:14px 18px; border-radius:10px; border:0; cursor:pointer; text-align:center; text-decoration:none; -webkit-appearance:none; appearance:none; }
   .btn-main { background:var(--ink); color:#fff; }
@@ -116,6 +120,8 @@ var FIXED_NAME = "", SHORT_PREFIX = "QCM4-CPRP1-20261014";
 var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM4-CPRP1-20261014";   // API vide = ancien circuit (correction dans la page + code par email)
 var STORE = "qcm_cprp1_20261014" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
 var LAST = null;
+var TEXT_AS_IMAGE = true;
+var TXT_FONT = "17px -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif", TXT_LH = 25;
 
 function shuffle(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
@@ -130,14 +136,18 @@ function build(){
     if (q.part !== part) { part = q.part; var c = 0; for (var k = 0; k < Q.length; k++) if (Q[k].part === part) c++;
       h += '<div class="part">' + esc(q.partLabel) + '<small>' + c + ' questions</small></div>'; }
     var opts = q.opts.slice(); shuffle(opts);
-    h += '<div class="q notranslate" translate="no" id="q' + q.n + '"><p class="stem"><b>' + (q.n < 10 ? "0" + q.n : q.n) + '</b>' + esc(q.prompt).replace("______", "<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>") + '</p>';
+    var stemHtml = TEXT_AS_IMAGE ? '<canvas class="txt" data-q="' + q.n + '" data-k="s"></canvas>'
+                                 : esc(q.prompt).replace("______", "<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+    h += '<div class="q notranslate" translate="no" id="q' + q.n + '"><p class="stem"><b>' + (q.n < 10 ? "0" + q.n : q.n) + '</b>' + stemHtml + '</p>';
     for (var j = 0; j < opts.length; j++) {
       var o = opts[j], id = "q" + q.n + "_" + o.L, checked = (st["q" + q.n] === o.L) ? " checked" : "";
-      h += '<label class="opt' + (checked ? " sel" : "") + '" for="' + id + '"><input type="radio" name="q' + q.n + '" id="' + id + '" value="' + o.L + '"' + checked + '><span>' + esc(o.t) + '</span></label>';
+      var optHtml = TEXT_AS_IMAGE ? '<canvas class="txt" data-q="' + q.n + '" data-k="' + o.L + '"></canvas>' : '<span>' + esc(o.t) + '</span>';
+      h += '<label class="opt' + (checked ? " sel" : "") + '" for="' + id + '"><input type="radio" name="q' + q.n + '" id="' + id + '" value="' + o.L + '"' + checked + '>' + optHtml + '</label>';
     }
     h += '</div>';
   }
   document.getElementById("quiz").innerHTML = h;
+  if (TEXT_AS_IMAGE) { document.body.classList.add("img"); paintAll(); }
   if (st.__name) document.getElementById("stuName").value = st.__name;
   document.getElementById("mailShow").textContent = TEACHER;
   if (FIXED_NAME) {
@@ -153,6 +163,29 @@ function build(){
   if (st.__done) restoreDone(st.__done);
 }
 
+// --- Texte dessiné dans des canvas (TEXT_AS_IMAGE) : rien à traduire ni à copier dans la page.
+function textFor(n, k){ var q = Q[n - 1]; if (k === "s") return q.prompt.replace("______", "________"); for (var i = 0; i < q.opts.length; i++) if (q.opts[i].L === k) return q.opts[i].t; return ""; }
+function paint(cv, bold){
+  var text = textFor(+cv.getAttribute("data-q"), cv.getAttribute("data-k"));
+  var w = Math.floor(cv.getBoundingClientRect().width); if (w < 40) w = 40;
+  var dpr = window.devicePixelRatio || 1, ctx = cv.getContext("2d"), font = (bold ? "600 " : "") + TXT_FONT;
+  ctx.font = font;
+  var words = text.split(" "), lines = [], cur = "";
+  for (var i = 0; i < words.length; i++) { var t = cur ? cur + " " + words[i] : words[i]; if (ctx.measureText(t).width > w && cur) { lines.push(cur); cur = words[i]; } else cur = t; }
+  lines.push(cur);
+  var H = lines.length * TXT_LH;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(H * dpr); cv.style.width = w + "px"; cv.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.font = font; ctx.fillStyle = "#2a2a2a"; ctx.textBaseline = "middle";
+  for (var j = 0; j < lines.length; j++) ctx.fillText(lines[j], 0, j * TXT_LH + TXT_LH / 2);
+  cv.setAttribute("data-w", w);
+}
+function paintQ(n){ var box = document.getElementById("q" + n); if (!box) return; var cs = box.querySelectorAll("canvas.txt");
+  for (var i = 0; i < cs.length; i++) { var lab = cs[i].closest(".opt"); paint(cs[i], !!(lab && lab.classList.contains("sel"))); } }
+function paintAll(){ for (var i = 1; i <= Q.length; i++) paintQ(i); }
+var _rsz = null;
+window.addEventListener("resize", function(){ if (!TEXT_AS_IMAGE) return; clearTimeout(_rsz); _rsz = setTimeout(function(){
+  var cv = document.querySelector("canvas.txt"); if (cv && Math.floor(cv.getBoundingClientRect().width) !== +cv.getAttribute("data-w")) paintAll(); }, 150); });
+
 function answered(){ var n = 0; for (var i = 1; i <= Q.length; i++) if (document.querySelector('input[name="q' + i + '"]:checked')) n++; return n; }
 function progress(){
   var n = answered(), done = (n === Q.length);
@@ -163,7 +196,7 @@ function progress(){
 
 document.addEventListener("change", function(e){
   var t = e.target; if (!t || t.type !== "radio") return;
-  var box = t.closest(".q"); if (box) { box.classList.remove("missing"); var ls = box.querySelectorAll(".opt"); for (var i = 0; i < ls.length; i++) ls[i].classList.remove("sel"); t.closest(".opt").classList.add("sel"); }
+  var box = t.closest(".q"); if (box) { box.classList.remove("missing"); var ls = box.querySelectorAll(".opt"); for (var i = 0; i < ls.length; i++) ls[i].classList.remove("sel"); t.closest(".opt").classList.add("sel"); if (TEXT_AS_IMAGE) paintQ(+t.name.slice(1)); }
   var st = load(); st[t.name] = t.value; save(st); progress();
 }, false);
 document.getElementById("stuName").addEventListener("input", function(){ var st = load(); st.__name = this.value; save(st); });
