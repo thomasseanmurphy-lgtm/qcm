@@ -7,7 +7,7 @@
 <link rel="icon" href="data:,">
 <meta name="google" content="notranslate">
 <meta name="robots" content="noindex, nofollow">
-<title>QCM de placement — B1 → C1</title>
+<title>Reachy Mini — Part A: multiple choice</title>
 <style>
   :root { --ink:#2a2a2a; --muted:#6b6357; --hair:#e2ddd3; --parch:#f5f0e8; --gold:#a8854a; --green:#4a6b4a; --red:#9a3b3b; --bg:#faf8f4; }
   * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -29,11 +29,15 @@
   .q.missing { border-color:var(--red); box-shadow:0 0 0 2px rgba(154,59,59,.15); }
   .q .stem { margin:0 0 8px; font-size:17px; }
   .q .stem b { font-family:Georgia, serif; color:var(--muted); margin-right:8px; }
+  .img .q .stem { display:flex; align-items:flex-start; }
+  .img .q .stem b { flex:none; line-height:25px; }
+  canvas.txt { display:block; flex:1 1 auto; width:100%; min-width:0; }
   .opt { display:flex; align-items:center; gap:12px; padding:10px 8px; border-radius:8px; cursor:pointer; font-size:17px; border:1px solid transparent; }
   .opt:active { background:var(--parch); }
   .opt input { width:22px; height:22px; margin:0; flex:none; accent-color:var(--ink); }
   .opt.sel { background:var(--parch); border-color:#d8d0c0; }
   .opt.sel span { font-weight:600; }
+  .opt canvas.txt { pointer-events:none; }
   .actions { position:sticky; bottom:0; background:rgba(250,248,244,.96); padding:12px 0; border-top:1px solid var(--hair); margin-top:20px; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
   .btn { display:inline-block; width:100%; font-size:18px; font-weight:700; padding:14px 18px; border-radius:10px; border:0; cursor:pointer; text-align:center; text-decoration:none; -webkit-appearance:none; appearance:none; }
   .btn-main { background:var(--ink); color:#fff; }
@@ -59,9 +63,9 @@
 <body class="notranslate" translate="no">
 <div class="wrap">
   <header>
-    <div class="eyebrow">ESIREM Polytech Dijon · Anglais · 3A CND · 2 octobre 2026</div>
-    <h1>QCM de placement — B1 → C1</h1>
-    <p class="sub">Grammaire et vocabulaire de l&#x27;ingénieur. Trois parties de difficulté croissante : ce test sert à adapter le cours, pas à sanctionner. 30 questions · note /20 · coefficient 0,1 · environ 30 min.</p>
+    <div class="eyebrow">UIMM Dijon · Anglais · BTS ELEC 2 · 5 novembre 2026</div>
+    <h1>Reachy Mini — Part A: multiple choice</h1>
+    <p class="sub">The video in facts · find the mistake · vocabulary (Worksheet 1 + Presentation Guide). 20 questions · note /20 · coefficient 1 · environ 20 min.</p>
   </header>
 
   <div class="card">
@@ -70,12 +74,12 @@
     <div class="note" id="nameNote"></div>
   </div>
 
-  <div class="consigne"><b>Consigne.</b> Une seule réponse par question. Répondez sans traducteur ni voisin : ce test sert à adapter le cours à votre niveau. Lisez les marqueurs de temps (since, yesterday, by the time, ever…) : ils décident du temps. Une réponse au hasard vaut mieux qu&#x27;une question vide.</div>
+  <div class="consigne"><b>Consigne.</b> Une seule réponse par question. Sans fiche, sans téléphone, sans voisin.</div>
 
   <div id="quiz"></div>
 
   <div class="actions">
-    <div class="progress" id="prog">0 / 30 réponses</div>
+    <div class="progress" id="prog">0 / 20 réponses</div>
     <div class="note" id="progNote" style="text-align:center;margin-top:0">Le bouton « Terminer » apparaîtra quand toutes les questions auront une réponse.</div>
     <div id="finish" hidden>
       <button class="btn btn-main" id="submitBtn" data-act="submit">Terminer et envoyer mon résultat</button>
@@ -106,16 +110,19 @@
     <button class="btn btn-sec" id="resetBtn" data-act="reset">Recommencer le QCM</button>
   </div>
 
-  <footer>ESIREM Dijon · QCM de placement — B1 → C1 · POLYTECH 3A CND · 2026.10.02 · Thomas Murphy</footer>
+  <footer>UIMM Dijon · Reachy Mini — Part A: multiple choice · BTS ELEC 2 · 2026.11.05 · Thomas Murphy</footer>
 </div>
 
 <script>
-var Q = [{"n": 1, "prompt": "This coating ______ the weld against corrosion, only against dust.", "opts": [{"L": "A", "t": "don't protect"}, {"L": "B", "t": "doesn't protect"}, {"L": "C", "t": "doesn't protects"}, {"L": "D", "t": "not protect"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present simple négatif"}, {"n": 2, "prompt": "The trainee asked: “How does this device ______?”", "opts": [{"L": "A", "t": "work"}, {"L": "B", "t": "works"}, {"L": "C", "t": "is working"}, {"L": "D", "t": "worked"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present simple"}, {"n": 3, "prompt": "The technicians ______ the pressure gauges yesterday, so nobody noticed the leak.", "opts": [{"L": "A", "t": "didn't checked"}, {"L": "B", "t": "haven't checked"}, {"L": "C", "t": "don't checked"}, {"L": "D", "t": "didn't check"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Past simple négatif"}, {"n": 4, "prompt": "The pump ______ vibration data since 8 a.m.", "opts": [{"L": "A", "t": "sends"}, {"L": "B", "t": "is sending"}, {"L": "C", "t": "has sent"}, {"L": "D", "t": "sent"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Present perfect"}, {"n": 5, "prompt": "We use an ultrasonic gauge ______ measure the thickness.", "opts": [{"L": "A", "t": "to"}, {"L": "B", "t": "for"}, {"L": "C", "t": "for to"}, {"L": "D", "t": "at"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "For / To"}, {"n": 6, "prompt": "The second version was ______ to configure than the first one.", "opts": [{"L": "A", "t": "more easier"}, {"L": "B", "t": "easier"}, {"L": "C", "t": "more easy"}, {"L": "D", "t": "easyer"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Comparatif court"}, {"n": 7, "prompt": "______ two types of alerts: a warning and an alarm.", "opts": [{"L": "A", "t": "There is"}, {"L": "B", "t": "It has"}, {"L": "C", "t": "They are"}, {"L": "D", "t": "There are"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "There is / There are"}, {"n": 8, "prompt": "Every visitor ______ wear safety glasses in the test lab — no exceptions.", "opts": [{"L": "A", "t": "must"}, {"L": "B", "t": "must to"}, {"L": "C", "t": "has"}, {"L": "D", "t": "should to"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Modal d'obligation"}, {"n": 9, "prompt": "This method ______ in most aircraft maintenance hangars.", "opts": [{"L": "A", "t": "is mainly use"}, {"L": "B", "t": "mainly uses"}, {"L": "C", "t": "is mainly used"}, {"L": "D", "t": "is mainly using"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Passif au présent"}, {"n": 10, "prompt": "I can't ______ the calibration value for this probe.", "opts": [{"L": "A", "t": "remind"}, {"L": "B", "t": "remember"}, {"L": "C", "t": "souvenir"}, {"L": "D", "t": "memory"}], "part": "A · B1", "partLabel": "Partie A — Niveau B1", "theme": "Vocabulaire B1"}, {"n": 11, "prompt": "______ you ever ______ a pressure vessel on an industrial site?", "opts": [{"L": "A", "t": "Did … inspect"}, {"L": "B", "t": "Have … inspect"}, {"L": "C", "t": "Do … inspected"}, {"L": "D", "t": "Have … inspected"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Question au present perfect"}, {"n": 12, "prompt": "By the time the inspector arrived, the crack ______ through the whole weld.", "opts": [{"L": "A", "t": "had already spread"}, {"L": "B", "t": "has already spread"}, {"L": "C", "t": "already spread"}, {"L": "D", "t": "was already spread"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Past perfect"}, {"n": 13, "prompt": "The inspection lab ______ by Bureau Veritas since 2014.", "opts": [{"L": "A", "t": "is owned"}, {"L": "B", "t": "was owned"}, {"L": "C", "t": "has been owned"}, {"L": "D", "t": "has owned"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Present perfect passif"}, {"n": 14, "prompt": "The doctor ______ me to get more physical exercise.", "opts": [{"L": "A", "t": "said"}, {"L": "B", "t": "told"}, {"L": "C", "t": "explained"}, {"L": "D", "t": "suggested"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Reported speech"}, {"n": 15, "prompt": "The supplier ______ the defective batch on purpose.", "opts": [{"L": "A", "t": "denied to ship"}, {"L": "B", "t": "denied ship"}, {"L": "C", "t": "denied that ship"}, {"L": "D", "t": "denied shipping"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Verbe de report"}, {"n": 16, "prompt": "The probe ______ is connected to the flaw detector stopped working last night.", "opts": [{"L": "A", "t": "which"}, {"L": "B", "t": "who"}, {"L": "C", "t": "whom"}, {"L": "D", "t": "whose"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Pronom relatif"}, {"n": 17, "prompt": "The crack remained undetected ______ three months.", "opts": [{"L": "A", "t": "during"}, {"L": "B", "t": "for"}, {"L": "C", "t": "while"}, {"L": "D", "t": "since"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "During / For / While"}, {"n": 18, "prompt": "Every part in the batch ______ its own serial number.", "opts": [{"L": "A", "t": "have"}, {"L": "B", "t": "are having"}, {"L": "C", "t": "has"}, {"L": "D", "t": "haves"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Every + singulier"}, {"n": 19, "prompt": "This tool ______ help mitigate the risk, but we need more tests before we can be sure.", "opts": [{"L": "A", "t": "will"}, {"L": "B", "t": "is able"}, {"L": "C", "t": "can't"}, {"L": "D", "t": "could"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Hedging"}, {"n": 20, "prompt": "The benefits of ultrasonic testing clearly ______ the costs.", "opts": [{"L": "A", "t": "outweigh"}, {"L": "B", "t": "overweight"}, {"L": "C", "t": "outgrow"}, {"L": "D", "t": "overwhelm"}], "part": "B · B2", "partLabel": "Partie B — Niveau B2", "theme": "Vocabulaire B2"}, {"n": 21, "prompt": "If the welds ______ tested every month, the recall would have cost a day, not a month.", "opts": [{"L": "A", "t": "were"}, {"L": "B", "t": "would have been"}, {"L": "C", "t": "had been"}, {"L": "D", "t": "had"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Conditionnel 3 passif"}, {"n": 22, "prompt": "Not only ______ the crack, but they also repaired it the same day.", "opts": [{"L": "A", "t": "the inspectors found"}, {"L": "B", "t": "did the inspectors find"}, {"L": "C", "t": "found the inspectors"}, {"L": "D", "t": "the inspectors did find"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Inversion"}, {"n": 23, "prompt": "It was the faulty sensor ______ caused the shutdown, not the software update.", "opts": [{"L": "A", "t": "what"}, {"L": "B", "t": "whose"}, {"L": "C", "t": "it"}, {"L": "D", "t": "that"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Phrase clivée"}, {"n": 24, "prompt": "The cracks ______ to have started during the last heat treatment.", "opts": [{"L": "A", "t": "are believed"}, {"L": "B", "t": "believe"}, {"L": "C", "t": "are believing"}, {"L": "D", "t": "were believed by"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Passif complexe"}, {"n": 25, "prompt": "______ the delay in delivery, the inspection report was submitted on time.", "opts": [{"L": "A", "t": "Although"}, {"L": "B", "t": "In spite"}, {"L": "C", "t": "Despite"}, {"L": "D", "t": "Even if"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Concession"}, {"n": 26, "prompt": "You ______ the probe last week — now the readings are wrong.", "opts": [{"L": "A", "t": "should calibrate"}, {"L": "B", "t": "must have calibrated"}, {"L": "C", "t": "should had calibrated"}, {"L": "D", "t": "should have calibrated"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Should have + V-en"}, {"n": 27, "prompt": "Which sentence is appropriate in a formal e-mail to a client?", "opts": [{"L": "A", "t": "Here's the report, check it out when you can."}, {"L": "B", "t": "Please find attached the inspection report for your review."}, {"L": "C", "t": "I send you the report, tell me what you think."}, {"L": "D", "t": "Report attached, cheers."}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Registre"}, {"n": 28, "prompt": "The budget was cut by 30 %. ______, the team delivered the prototype on time.", "opts": [{"L": "A", "t": "Nevertheless"}, {"L": "B", "t": "Therefore"}, {"L": "C", "t": "Moreover"}, {"L": "D", "t": "Namely"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Connecteur de concession"}, {"n": 29, "prompt": "The inspector ______ a 3-mm crack because the surface was coated.", "opts": [{"L": "A", "t": "oversaw"}, {"L": "B", "t": "overtook"}, {"L": "C", "t": "overlooked"}, {"L": "D", "t": "overcame"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Vocabulaire C1"}, {"n": 30, "prompt": "______ by the storm, the antenna had to be replaced.", "opts": [{"L": "A", "t": "Damaging"}, {"L": "B", "t": "Having damaged"}, {"L": "C", "t": "To damage"}, {"L": "D", "t": "Damaged"}], "part": "C · C1", "partLabel": "Partie C — Niveau C1", "theme": "Proposition participiale passive"}];
-var TEST_NAME = "QCM de placement — B1 → C1 · POLYTECH 3A CND · 2026.10.02", CLASS_NAME = "POLYTECH 3A CND", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "QCM Anglais Polytech 3A CND — {name}";
-var FIXED_NAME = "", SHORT_PREFIX = "QCM1-POLY3ACND-20260918";
-var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM1-POLY3ACND-20260918";   // API vide = ancien circuit (correction dans la page + code par email)
-var STORE = "qcm_poly3acnd_20260918" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
+var Q = [{"n": 1, "prompt": "Reachy Mini was created by Pollen Robotics and ______.", "opts": [{"L": "A", "t": "Raspberry Pi"}, {"L": "B", "t": "Hugging Face"}, {"L": "C", "t": "Boston Dynamics"}, {"L": "D", "t": "Google"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Faits de la vidéo"}, {"n": 2, "prompt": "Pollen Robotics is a ______ company.", "opts": [{"L": "A", "t": "French"}, {"L": "B", "t": "American"}, {"L": "C", "t": "Japanese"}, {"L": "D", "t": "German"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Faits de la vidéo"}, {"n": 3, "prompt": "The robot is sold as a kit, and you program it in ______.", "opts": [{"L": "A", "t": "C++"}, {"L": "B", "t": "Java"}, {"L": "C", "t": "Python"}, {"L": "D", "t": "English"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Faits de la vidéo"}, {"n": 4, "prompt": "To hear, Reachy Mini uses ______.", "opts": [{"L": "A", "t": "two speakers"}, {"L": "B", "t": "a wide-angle camera"}, {"L": "C", "t": "two antennas"}, {"L": "D", "t": "four microphones"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Faits de la vidéo"}, {"n": 5, "prompt": "The brain of the Reachy Mini Lite is ______.", "opts": [{"L": "A", "t": "your computer (Mac or PC)"}, {"L": "B", "t": "a Raspberry Pi inside the robot"}, {"L": "C", "t": "a Wi-Fi router"}, {"L": "D", "t": "a battery"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Faits de la vidéo"}, {"n": 6, "prompt": "In the first demo, the robot ______.", "opts": [{"L": "A", "t": "speaks like a pirate"}, {"L": "B", "t": "points at a star"}, {"L": "C", "t": "tells a joke and dances"}, {"L": "D", "t": "picks up an object"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Démos"}, {"n": 7, "prompt": "The engineer's astronomy app knows about ______ stars, planets and constellations.", "opts": [{"L": "A", "t": "15"}, {"L": "B", "t": "150"}, {"L": "C", "t": "500"}, {"L": "D", "t": "1,500"}], "part": "A · Facts", "partLabel": "Part A — The video in facts", "theme": "Démos"}, {"n": 8, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "Reachy Mini have a head and two antennas, but it doesn't have arms or legs."}, {"L": "B", "t": "Reachy Mini has a head and two antennas, but it don't have arms or legs."}, {"L": "C", "t": "Reachy Mini has a head and two antennas, but it hasn't arms or legs."}, {"L": "D", "t": "Reachy Mini has a head and two antennas, but it doesn't have arms or legs."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 9, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "The Lite version is cheaper than the Wireless version: it costs $399."}, {"L": "B", "t": "The Lite version is more cheap than the Wireless version: it costs $399."}, {"L": "C", "t": "The Lite version is cheaper that the Wireless version: it costs $399."}, {"L": "D", "t": "The Lite version is cheaper than the Wireless version: it cost $399."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 10, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "The robot uses four microphones for hear and a speaker for speak."}, {"L": "B", "t": "The robot use four microphones to hear and a speaker to speak."}, {"L": "C", "t": "The robot uses four microphones to hear and a speaker to speak."}, {"L": "D", "t": "The robot uses four microphone to hear and a speaker to speak."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 11, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "The robot weight 1.5 kg."}, {"L": "B", "t": "The robot weighs 1.5 kg."}, {"L": "C", "t": "The robot is weighing 1.5 kg."}, {"L": "D", "t": "The robot weigh 1.5 kg."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 12, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "It can't to talk without an internet connection."}, {"L": "B", "t": "It doesn't can talk without an internet connection."}, {"L": "C", "t": "It can't talks without an internet connection."}, {"L": "D", "t": "It can't talk without an internet connection."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 13, "prompt": "Find the mistake. All four sentences are true. Which one is written correctly?", "opts": [{"L": "A", "t": "The engineer asked the robot to tell a joke, and it answered."}, {"L": "B", "t": "The engineer asked to the robot to tell a joke, and it answered."}, {"L": "C", "t": "The engineer ask the robot to tell a joke, and it answer."}, {"L": "D", "t": "The engineer asked the robot for tell a joke, and it answered."}], "part": "B · Mistake", "partLabel": "Part B — Find the mistake", "theme": "Grammaire"}, {"n": 14, "prompt": "Which word means « personnaliser » ?", "opts": [{"L": "A", "t": "to download"}, {"L": "B", "t": "to track"}, {"L": "C", "t": "to customize"}, {"L": "D", "t": "to rotate"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 15, "prompt": "Which word means « un haut-parleur » ?", "opts": [{"L": "A", "t": "a microphone"}, {"L": "B", "t": "a camera"}, {"L": "C", "t": "an antenna"}, {"L": "D", "t": "a speaker"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 16, "prompt": "Which word means « une fonctionnalité » ?", "opts": [{"L": "A", "t": "a behavior"}, {"L": "B", "t": "a feature"}, {"L": "C", "t": "a part"}, {"L": "D", "t": "a kit"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 17, "prompt": "Which expression means « montrer du doigt » ?", "opts": [{"L": "A", "t": "to point at"}, {"L": "B", "t": "to look at"}, {"L": "C", "t": "to track"}, {"L": "D", "t": "to tilt"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 18, "prompt": "Which word means « une prise de courant » ?", "opts": [{"L": "A", "t": "a cable"}, {"L": "B", "t": "a battery"}, {"L": "C", "t": "an outlet"}, {"L": "D", "t": "a desk"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 19, "prompt": "Which word means « suivre (un visage) » ?", "opts": [{"L": "A", "t": "to turn"}, {"L": "B", "t": "to rotate"}, {"L": "C", "t": "to download"}, {"L": "D", "t": "to track"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}, {"n": 20, "prompt": "Which word means « le comportement » ?", "opts": [{"L": "A", "t": "the brain"}, {"L": "B", "t": "behavior"}, {"L": "C", "t": "a feature"}, {"L": "D", "t": "a version"}], "part": "C · Vocab", "partLabel": "Part C — Vocabulary", "theme": "Vocabulaire"}];
+var TEST_NAME = "Reachy Mini — Part A: multiple choice · BTS ELEC 2 · 2026.11.05", CLASS_NAME = "BTS ELEC 2", TEACHER = "Thomas.sean.murphy@gmail.com", MAIL_SUBJECT = "QCM Anglais ELEC 2 — {name}";
+var FIXED_NAME = "", SHORT_PREFIX = "QCM2-ELEC2-20261105";
+var API = "https://qcm-api.thomas-sean-murphy.workers.dev", QCM_ID = "QCM2-ELEC2-20261105";   // API vide = ancien circuit (correction dans la page + code par email)
+var STORE = "qcm_elec2_20261105" + (FIXED_NAME ? "_" + FIXED_NAME.replace(/[^A-Za-z0-9]+/g, "_") : "");
 var LAST = null;
+var BUILD = "2026-10-23T08:50:50";   // horodatage de qcm.py html ; comparé à current.json pour remplacer une page en cache
+var TEXT_AS_IMAGE = true;
+var TXT_FONT = "17px -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif", TXT_LH = 25;
 
 function shuffle(a){ for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
@@ -130,14 +137,18 @@ function build(){
     if (q.part !== part) { part = q.part; var c = 0; for (var k = 0; k < Q.length; k++) if (Q[k].part === part) c++;
       h += '<div class="part">' + esc(q.partLabel) + '<small>' + c + ' questions</small></div>'; }
     var opts = q.opts.slice(); shuffle(opts);
-    h += '<div class="q notranslate" translate="no" id="q' + q.n + '"><p class="stem"><b>' + (q.n < 10 ? "0" + q.n : q.n) + '</b>' + esc(q.prompt).replace("______", "<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>") + '</p>';
+    var stemHtml = TEXT_AS_IMAGE ? '<canvas class="txt" data-q="' + q.n + '" data-k="s"></canvas>'
+                                 : esc(q.prompt).replace("______", "<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+    h += '<div class="q notranslate" translate="no" id="q' + q.n + '"><p class="stem"><b>' + (q.n < 10 ? "0" + q.n : q.n) + '</b>' + stemHtml + '</p>';
     for (var j = 0; j < opts.length; j++) {
       var o = opts[j], id = "q" + q.n + "_" + o.L, checked = (st["q" + q.n] === o.L) ? " checked" : "";
-      h += '<label class="opt' + (checked ? " sel" : "") + '" for="' + id + '"><input type="radio" name="q' + q.n + '" id="' + id + '" value="' + o.L + '"' + checked + '><span>' + esc(o.t) + '</span></label>';
+      var optHtml = TEXT_AS_IMAGE ? '<canvas class="txt" data-q="' + q.n + '" data-k="' + o.L + '"></canvas>' : '<span>' + esc(o.t) + '</span>';
+      h += '<label class="opt' + (checked ? " sel" : "") + '" for="' + id + '"><input type="radio" name="q' + q.n + '" id="' + id + '" value="' + o.L + '"' + checked + '>' + optHtml + '</label>';
     }
     h += '</div>';
   }
   document.getElementById("quiz").innerHTML = h;
+  if (TEXT_AS_IMAGE) { document.body.classList.add("img"); paintAll(); }
   if (st.__name) document.getElementById("stuName").value = st.__name;
   document.getElementById("mailShow").textContent = TEACHER;
   if (FIXED_NAME) {
@@ -153,6 +164,41 @@ function build(){
   if (st.__done) restoreDone(st.__done);
 }
 
+// --- Texte dessiné dans des canvas (TEXT_AS_IMAGE) : rien à traduire ni à copier dans la page.
+function textFor(n, k){ var q = Q[n - 1]; if (k === "s") return q.prompt.replace("______", "________"); for (var i = 0; i < q.opts.length; i++) if (q.opts[i].L === k) return q.opts[i].t; return ""; }
+function paint(cv, bold){
+  var text = textFor(+cv.getAttribute("data-q"), cv.getAttribute("data-k"));
+  var w = Math.floor(cv.getBoundingClientRect().width); if (w < 40) w = 40;
+  var dpr = window.devicePixelRatio || 1, ctx = cv.getContext("2d"), font = (bold ? "600 " : "") + TXT_FONT;
+  ctx.font = font;
+  var words = text.split(" "), lines = [], cur = "";
+  for (var i = 0; i < words.length; i++) { var t = cur ? cur + " " + words[i] : words[i]; if (ctx.measureText(t).width > w && cur) { lines.push(cur); cur = words[i]; } else cur = t; }
+  lines.push(cur);
+  var H = lines.length * TXT_LH;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(H * dpr); cv.style.width = w + "px"; cv.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.font = font; ctx.fillStyle = "#2a2a2a"; ctx.textBaseline = "middle";
+  for (var j = 0; j < lines.length; j++) ctx.fillText(lines[j], 0, j * TXT_LH + TXT_LH / 2);
+  cv.setAttribute("data-w", w);
+}
+function paintQ(n){ var box = document.getElementById("q" + n); if (!box) return; var cs = box.querySelectorAll("canvas.txt");
+  for (var i = 0; i < cs.length; i++) { var lab = cs[i].closest(".opt"); paint(cs[i], !!(lab && lab.classList.contains("sel"))); } }
+function paintAll(){ for (var i = 1; i <= Q.length; i++) paintQ(i); }
+var _rsz = null;
+window.addEventListener("resize", function(){ if (!TEXT_AS_IMAGE) return; clearTimeout(_rsz); _rsz = setTimeout(function(){
+  var cv = document.querySelector("canvas.txt"); if (cv && Math.floor(cv.getBoundingClientRect().width) !== +cv.getAttribute("data-w")) paintAll(); }, 150); });
+
+// --- Auto-rafraîchissement (14/10/2026) : GitHub Pages est mis en cache 10 min par le navigateur ; si current.json annonce
+// une version plus récente que celle-ci, on recharge une fois (fetch cache:"reload" puis reload). Les réponses sont dans localStorage.
+(function(){
+  if (!/^https?:/.test(location.protocol) || !BUILD) return;
+  var base = location.pathname.replace(/[^\/]*$/, "");
+  fetch(base + "current.json?t=" + Date.now(), {cache: "no-store"}).then(function(r){ return r.json(); }).then(function(c){
+    if (!c || !c.build || c.build <= BUILD) return;
+    var k = "qcm_reloaded_" + c.build; try { if (sessionStorage.getItem(k)) return; sessionStorage.setItem(k, "1"); } catch(e) {}
+    fetch(location.pathname, {cache: "reload"}).then(function(){ location.reload(); }, function(){ location.reload(); });
+  }).catch(function(){});
+})();
+
 function answered(){ var n = 0; for (var i = 1; i <= Q.length; i++) if (document.querySelector('input[name="q' + i + '"]:checked')) n++; return n; }
 function progress(){
   var n = answered(), done = (n === Q.length);
@@ -163,7 +209,7 @@ function progress(){
 
 document.addEventListener("change", function(e){
   var t = e.target; if (!t || t.type !== "radio") return;
-  var box = t.closest(".q"); if (box) { box.classList.remove("missing"); var ls = box.querySelectorAll(".opt"); for (var i = 0; i < ls.length; i++) ls[i].classList.remove("sel"); t.closest(".opt").classList.add("sel"); }
+  var box = t.closest(".q"); if (box) { box.classList.remove("missing"); var ls = box.querySelectorAll(".opt"); for (var i = 0; i < ls.length; i++) ls[i].classList.remove("sel"); t.closest(".opt").classList.add("sel"); if (TEXT_AS_IMAGE) paintQ(+t.name.slice(1)); }
   var st = load(); st[t.name] = t.value; save(st); progress();
 }, false);
 document.getElementById("stuName").addEventListener("input", function(){ var st = load(); st.__name = this.value; save(st); });
