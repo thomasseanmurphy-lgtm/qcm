@@ -1,9 +1,9 @@
 {
- "title": "Reachy Mini — Part A (5 novembre 2026)",
- "desc": "Évaluation Reachy Mini, partie A. Écrivez votre nom, répondez aux 20 questions, puis appuyez sur Terminer.",
- "classe": "BTS ELEC 2",
+ "title": "QCM Positionnement de rentrée — Bac Pro 1ère Logistique (3 novembre 2026)",
+ "desc": "Test de rentrée. Écrivez votre nom et prénom, répondez aux 30 questions, puis appuyez sur Terminer.",
+ "classe": "BAC 1ère",
  "slot": 2,
- "updated": "23/10/2026 08:50",
- "build": "2026-10-23T08:50:50",
- "source": "/Users/thomasmurphy/Documents/COURS/3.UIMM/1. GROUPES/2026-2027/ELEC 2/Evaluation/2026.11.05 Eval Reachy Mini/Eval_Reachy_Mini_PartA_QCM_ELEC2.html"
+ "updated": "03/11/2026 10:19",
+ "build": "2026-11-03T10:19:17",
+ "source": "/Users/thomasmurphy/Documents/COURS/2.AFTRAL/1.GROUPE/2026-2027/BAC 1ère/Evaluation/2026.11.03 QCM Positionnement/QCM_Positionnement_BAC1ERE.html"
 }
