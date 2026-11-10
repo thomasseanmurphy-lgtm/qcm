@@ -1,9 +1,9 @@
 {
- "title": "QCM Vocabulaire — Robot Warehouse & My Job — Bac Pro Terminale Logistique (29 octobre 2026)",
- "desc": "Fin de séance. Écrivez votre nom et prénom, répondez aux 20 questions, puis appuyez sur Terminer.",
- "classe": "BAC Terminal",
+ "title": "QCM Diagnostic de rentrée — BTS GTLA 2 (15 septembre 2026)",
+ "desc": "Test de rentrée sur le programme de 1re année. Écrivez votre nom et prénom, répondez, puis appuyez sur Terminer.",
+ "classe": "BTS GTLA 2",
  "slot": 1,
- "updated": "29/10/2026 11:33",
- "build": "2026-10-29T11:32:06",
- "source": "/Users/thomasmurphy/Documents/COURS/2.AFTRAL/1.GROUPE/2026-2027/BAC Terminal/Evaluation/2026.10.29 QCM Vocabulaire/QCM_Vocabulaire_BACTERM.html"
+ "updated": "10/11/2026 08:26",
+ "build": "",
+ "source": "/Users/thomasmurphy/Documents/COURS/2.AFTRAL/1.GROUPE/2026-2027/GTLA 2/Evaluation/2026.09.01 Diagnostic-Rentree/QCM_GTLA2.html"
 }
